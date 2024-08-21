@@ -1,7 +1,6 @@
 import time
 import serial
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 import kinematics
 import walk
@@ -84,7 +83,22 @@ class control():
         #time.sleep(0.05)
         self.packet = []
 
-    def walk(self, dir, speed, gait=1, origin_point=(180, 0, -80)):
+    def turn(self, turn_dir, turn_strength, origin_point):
+        stepsize = (turn_strength - 0.20) * 0.8 + 0.05
+        ground_touching_percentage = 50
+
+        self.walk_progress = walk.gen_next_point(0, self.walk_progress, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point)
+        self.pre_move_local_coord(1, walk.gen_next_point(1, self.walk_progress+50, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.pre_move_local_coord(2, walk.gen_next_point(2, self.walk_progress, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.pre_move_local_coord(3, walk.gen_next_point(3, self.walk_progress+50, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.pre_move_local_coord(4, walk.gen_next_point(4, self.walk_progress, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.pre_move_local_coord(5, walk.gen_next_point(5, self.walk_progress+50, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.pre_move_local_coord(6, walk.gen_next_point(6, self.walk_progress, stepsize, 1, turn_dir, 0, ground_touching_percentage, origin_point))
+        self.execute_move()
+
+
+
+    def walk(self, dir, speed, turn_strength, turn_dir, gait=1, origin_point=(180, 0, -80)):
         self.new_gait = gait
         self.last_dir = dir
         if self.current_gait != self.new_gait:
@@ -112,19 +126,26 @@ class control():
         if self.current_gait == 1:  # Trigait
             stepsize = (speed-0.20)*0.8+0.05
             ground_touching_percentage = 50
-            points = []
-            for i in range(0, 5000):
-                self.walk_progress = walk.gen_next_path_point(1, stepsize, self.walk_progress, ground_touching_percentage, origin_point, dir)[1]
-                self.point[0] = walk.gen_next_path_point(1, stepsize, self.walk_progress, ground_touching_percentage, origin_point, dir)[0]
-                #self.point[1] = walk.gen_next_path_point(2, stepsize, self.walk_progress+50, ground_touching_prozentage, origin_point, dir)[0]
-                #self.point[2] = walk.gen_next_path_point(3, stepsize, self.walk_progress, ground_touching_prozentage, origin_point, dir)[0]
-                #self.point[3] = walk.gen_next_path_point(4, stepsize, self.walk_progress+50, ground_touching_prozentage, origin_point, dir)[0]
-                #self.point[4] = walk.gen_next_path_point(5, stepsize, self.walk_progress, ground_touching_prozentage, origin_point, dir)[0]
-                #self.point[5] = walk.gen_next_path_point(6, stepsize, self.walk_progress+50, ground_touching_prozentage, origin_point, dir)[0]
-                #for i in range(6):
-                #    points.append(self.point[i])
-                points.append(self.point[0])
-            plot_3d_points(points)
+            self.walk_progress = walk.gen_next_point(0, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point)
+            self.pre_move_local_coord(1, walk.gen_next_point(1, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.pre_move_local_coord(2, walk.gen_next_point(2, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.pre_move_local_coord(3, walk.gen_next_point(3, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.pre_move_local_coord(4, walk.gen_next_point(4, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.pre_move_local_coord(5, walk.gen_next_point(5, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.pre_move_local_coord(6, walk.gen_next_point(6, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            self.execute_move()
+
+
+            #points = []
+            #for i in range(int(round(100/stepsize, 0))):
+            #    self.walk_progress = walk.gen_next_point(0, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point)
+            #    points.append(walk.gen_next_point(1, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #    points.append(walk.gen_next_point(2, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #    points.append(walk.gen_next_point(3, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #    points.append(walk.gen_next_point(4, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #    points.append(walk.gen_next_point(5, self.walk_progress+50, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #    points.append(walk.gen_next_point(6, self.walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point))
+            #plot_3d_points(points)
             #self.pre_move_local_coord(1, walk.path_point_to_local_coord(1, self.point[0], orgin_point, dir))
             #self.pre_move_local_coord(2, walk.path_point_to_local_coord(2, self.point[1], orgin_point, dir))
             #self.pre_move_local_coord(3, walk.path_point_to_local_coord(3, self.point[2], orgin_point, dir))

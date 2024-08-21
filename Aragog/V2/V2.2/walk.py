@@ -1,10 +1,10 @@
 import math
 
+from scipy.constants import point
 from scipy.integrate import quad
 from scipy.optimize import newton
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 import config
 
@@ -122,7 +122,7 @@ def diff_between_two_points(point1, point2):
 
 
 
-def gen_curve_point(leg, t, start_point, end_point=(180, 0, -100), height=120):
+def gen_top_curve_point(leg, t, start_point, end_point=(180, 0, -100), height=120):
     dist_between_points = diff_between_two_points(start_point, end_point)
     curve_boundary = ((-dist_between_points, 0), (-dist_between_points*0.5, height), (0, 0, 0))
     t = map_value(t, 0, 1, 0, curve_top_len)
@@ -135,33 +135,71 @@ def gen_curve_point(leg, t, start_point, end_point=(180, 0, -100), height=120):
     return point
 
 
-def gen_turn_point(t, origin_point):
-    r = diff_between_two_points((0, 0), (origin_point[0], 0.5*step_length))
+def gen_turn_point(t, origin_point, turn_dir):
+    r = 120+origin_point[0]
     d = step_length
     max_rad = math.acos((d**2-2*(r**2))/(-2*(r**2)))
-    len = (r*math.pi*math.degrees(max_rad))/180
-    point = (math.cos(t*max_rad-0.5*max_rad)*r, math.sin(t*max_rad-0.5*max_rad)*r, origin_point[2])
+    if 180 < turn_dir < 360:
+        t = 1 - t
+    # len = (r*math.pi*math.degrees(max_rad))/180
+    # point = (math.cos(t*max_rad-0.5*max_rad)*r, math.sin(t*max_rad-0.5*max_rad)*r, origin_point[2])
+    point = (math.cos(t*max_rad-0.5*max_rad)*r-r*math.cos(0.5*max_rad), math.sin(t*max_rad-0.5*max_rad)*r)
     return point
 
-def gen_point(leg, walk_progress, ground_touching_percentage, origin_point, dir):
+
+def gen_straight_point(t, leg, dir):
+    walk_point = [0, 0.5*step_length - t*step_length]
+    walk_point = [math.sin(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * walk_point[1],
+                  math.cos(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * walk_point[1]]
+    return walk_point
+
+
+def gen_point(leg, walk_progress, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point):
     if walk_progress <= 0.5*ground_touching_percentage:
         t = map_value(walk_progress, 0, 0.5 * ground_touching_percentage, 0, 0.5)
-        walk_point = [0, -step_length * t, 0]
-        turn_point = gen_turn_point(t, origin_point)
+        walk_point = gen_straight_point(0.5+t, leg, dir)
+        turn_point = gen_turn_point(0.5+t, origin_point, turn_dir)
+        point = (walk_point[0] - turn_strength * (walk_point[0] - turn_point[0]) + origin_point[0],
+                 walk_point[1] - turn_strength * (walk_point[1] - turn_point[1]) + origin_point[1],
+                 origin_point[2])
 
 
     elif 0.5*ground_touching_percentage < walk_progress < 100-(0.5 * ground_touching_percentage):
         t = map_value(walk_progress, 0.5 * ground_touching_percentage, 100 - (0.5 * ground_touching_percentage), 0, 1)
         t_i = inverse_L(curve_top_len*t, curve_top_boundary, curve_top_len)
         point = bezier_curve(t_i, curve_top_boundary)
-        point = [math.sin(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[0] + origin_point[0],
-                 math.cos(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[0] + origin_point[1],
+        point = [math.sin(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[0],
+                 math.cos(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[1],
                  point[1] + origin_point[2]]
+
+        #point = [math.sin(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[0],
+        #         math.cos(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[1],
+        #         point[1] + origin_point[2]]
+        #curve_top_boundary_3D = ((gen_straight_point(1 , leg, dir)[0] - turn_strength * (gen_straight_point(1 , leg, dir)[0] - gen_turn_point(1, origin_point, turn_dir)[0]) + origin_point[0], gen_straight_point(1 , leg, dir)[1] - turn_strength * (gen_straight_point(1 , leg, dir)[1] - gen_turn_point(1, origin_point, turn_dir)[1]) + origin_point[1], origin_point[2]),
+        #                         (origin_point[0], origin_point[1], origin_point[2] + step_height),
+        #                         (gen_straight_point(0, leg, dir)[0] - turn_strength * ( gen_straight_point(0, leg, dir)[0] - gen_turn_point(0, origin_point, turn_dir)[0]) + origin_point[0], gen_straight_point(0, leg, dir)[1] - turn_strength * ( gen_straight_point(0, leg, dir)[1] - gen_turn_point(0, origin_point, turn_dir)[1]) + origin_point[1], origin_point[2])
+        #                         )
+        #tan = pyt((curve_top_boundary_3D[0][0], curve_top_boundary_3D[0][1]))
+        #curve_boundary_new = ((-tan, 0), (0, step_height), (tan, 0))
+        #curve_len_new = curve_length(curve_boundary_new)
+        #t_i = inverse_L(curve_len_new * t, curve_boundary_new, curve_len_new)
+        #point = bezier_curve(t_i, curve_boundary_new)
+        #point = (0, point[0], point[1])
+        #curve_len = curve_length_3D(curve_top_boundary_3D)
+        #t_i = inverse_L_3D(curve_len*t, curve_top_boundary_3D, curve_len)
+        #point = bezier_curve_3D(t_i, curve_top_boundary_3D)
+        #curve_len = curve_length()
+        #t_i = inverse_L(curve_top_len*t, curve_top_boundary, curve_top_len)
+        #point = bezier_curve(t_i, curve_top_boundary)
+
 
     elif walk_progress >= 100-(0.5 * ground_touching_percentage):
         t = map_value(walk_progress, 100 - (0.5 * ground_touching_percentage), 100, 0, 0.5)
-        walk_point = [0, 0.5*step_length-step_length * t, 0]
-        turn_point = gen_turn_point(t+0.5, origin_point)
+        walk_point = gen_straight_point(t, leg, dir)
+        turn_point = gen_turn_point(t, origin_point, turn_dir)
+        point = (walk_point[0] - turn_strength * (walk_point[0] - turn_point[0]) + origin_point[0],
+                 walk_point[1] - turn_strength * (walk_point[1] - turn_point[1]) + origin_point[1],
+                 origin_point[2])
 
     else:
         exit("Error: walk_progress out of range")
@@ -169,14 +207,17 @@ def gen_point(leg, walk_progress, ground_touching_percentage, origin_point, dir)
     return point
 
 
-def gen_next_point(leg, walk_progress, stepsize, dir, ground_touching_percentage, origin_point):
+def gen_next_point(leg, walk_progress, stepsize, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point):
     walk_progress = walk_progress + stepsize
     if walk_progress > 100:
         walk_progress = walk_progress % 100
 
-    #print(f"walk progress: {walk_progress}")
-    point = gen_point(leg, walk_progress, ground_touching_percentage, origin_point, dir)
-    return point, walk_progress
+    if leg == 0:
+        return walk_progress
+
+    point = gen_point(leg, walk_progress, turn_strength, turn_dir, dir, ground_touching_percentage, origin_point)
+    return point
+
 
 
 def point_to_leg_dir(leg, point, dir):
@@ -184,6 +225,7 @@ def point_to_leg_dir(leg, point, dir):
              math.cos(math.radians(config.data["legMountAngle"][leg-1]+dir))*point[1],
              point[2]]
     return point
+
 
 def plot_3d_points(points):
     fig = plt.figure()
@@ -229,9 +271,6 @@ step_height = config.data["step_height"]
 curve_top_boundary = [[-0.5 * step_length, 0],
                       [0, step_height],
                       [0.5 * step_length, 0]]
-
-line_bottom_left_boundary = [[0.5 * step_length, 0], [0, 0]]
-line_bottom_right_boundary = [[0, 0], [-0.5 * step_length, 0]]
 
 curve_top_len = curve_length(curve_top_boundary)
 curve_bottom_right_len = 0.5 * step_length
