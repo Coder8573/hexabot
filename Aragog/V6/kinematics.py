@@ -3,6 +3,8 @@ import math
 from scipy.constants import point
 
 import config
+import operations
+import vectors
 
 class calc():
     def __init__(self):
@@ -115,7 +117,6 @@ class calc():
                 int(round(((-180*(config.data["legScale"][leg-1][2]-1))+M3*config.data["legScale"][leg-1][2])*(512/45), 0))]
 
 
-
     def local_coord_to_abs_coord(self, coord, leg, origin_point):
 
 
@@ -131,7 +132,13 @@ class calc():
         #    displacement_point = [math.sin(math.radians(config.data["legMountAngle"][leg-1]))*coord[1] + config.data["legMountX"][leg-1],
         #                          math.cos(math.radians(config.data["legMountAngle"][leg-1]))*coord[1] + config.data["legMountY"][leg-1],
         #                          coord[2]]
-        point = [coord[0] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.sin(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountX"][leg-1],
-                 coord[1] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.cos(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountY"][leg-1],
-                 coord[2]]
+        #point=[coord[0]+displacement_point[0], coord[1]+displacement_point[1], coord[2]+displacement_point[2]]
+        #coord = vectors.rotate([coord[0]-origin_point[0], coord[1]-origin_point[1], coord[2]], -config.data["legMountAngle"][leg-1]+90, [0, 0])
+        #point = [coord[0] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.sin(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountX"][leg-1],
+        #         coord[1] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.cos(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountY"][leg-1],
+        #         coord[2]]
+        point = vectors.rotate(coord, -config.data["legMountAngle"][leg-1]+90, [0, 0])
+        point = [point[0] + config.data["legMountX"][leg-1],
+                 point[1] + config.data["legMountY"][leg-1],
+                 point[2]]
         return point

@@ -6,7 +6,6 @@ from controller import controller
 control = Control("COM13")
 controller = controller()
 gait = 1
-
 try:
     #control.test()
     # control.home((180, 0, -80))
@@ -20,10 +19,10 @@ try:
         Square = controller.get_pressed_buttons(2)
         if L1 or R1:
             gait = gait + R1 - L1
-            if gait > 2:
+            if gait > 5:
                 gait = 0
             if gait < 0:
-                gait = 2
+                gait = 5
             print(f"gait: {gait}")
             while L1 or R1:
                 L1 = controller.get_pressed_buttons(9)
@@ -44,15 +43,15 @@ try:
         pressed_buttons = controller.get_pressed_buttons()
         #print(Joystick_L)
         if Joystick_L != None and Joystick_R != None:
-            control.walk(Joystick_L["dir"], Joystick_L["speed"], [Joystick_R["x"], Joystick_R["y"]], gait=gait)# Joystick_L["dir"]
+            control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)# Joystick_L["dir"]
             # control.walk_to_home_pos()
         elif Joystick_L != None and Joystick_R == None:
-            control.walk(Joystick_L["dir"], Joystick_L["speed"], [0, 0], gait=gait)  # Joystick_L["dir"]
+            control.walk(Joystick_L["vector"], [0, 0], gait=gait)  # Joystick_L["dir"]
 
         elif Joystick_R != None and Joystick_L == None:
-            control.walk(0, 0, [Joystick_R["x"], Joystick_R["y"]], gait=gait)
+            control.walk([0, 0], Joystick_R["vector"], gait=gait)
         #control.rotate()
-        time.sleep(0.05)
+        time.sleep(0.01)
         #time.sleep(0.1)
     #time.sleep(0.5)
 
@@ -61,5 +60,5 @@ try:
 
 
 except KeyboardInterrupt:
-    #control.disable_force(254)
+    control.disable_force(254)
     control.close()

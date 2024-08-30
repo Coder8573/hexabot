@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from pygame import Vector3
 
 import kinematics
-import walk
+from walk import Walk_Class
 import Bezier
 
 
@@ -19,6 +19,7 @@ class Control:
         self.current_gait = 1
         self.new_gait = 1
         self.origin_point = [180, 0, -80]
+        self.walk_class = Walk_Class(self.origin_point)
         self.last_points = [[0, 0, 0],
                             [0, 0, 0],
                             [0, 0, 0],
@@ -45,7 +46,7 @@ class Control:
         #print(f"Leg: {leg}, coord: {coord}")
 
 
-    def walk(self, walk_dir, walk_speed, turn_vector, gait):
+    def walk(self, joy1, joy2, gait):
         #print(f"Walk dir: {walk_dir}, speed: {walk_speed}, trun vector: {turn_vector}, gait: {gait}")
         self.new_gait = gait
         if self.current_gait != self.new_gait:
@@ -54,12 +55,12 @@ class Control:
             for i in range(6):
                 self.last_points[i] = self.origin_point
         #print(self.last_points)
-        self.new_points[0] = walk.gen_point(1, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
-        self.new_points[1] = walk.gen_point(2, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
-        self.new_points[2] = walk.gen_point(3, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
-        self.new_points[3] = walk.gen_point(4, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
-        self.new_points[4] = walk.gen_point(5, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
-        self.new_points[5] = walk.gen_point(6, walk_dir, walk_speed, turn_vector, gait, self.last_points, self.origin_point)
+        self.new_points[0] = self.walk_class.gen_point(1, joy1, joy2, gait, self.origin_point)
+        self.new_points[1] = self.walk_class.gen_point(2, joy1, joy2, gait, self.origin_point)
+        self.new_points[2] = self.walk_class.gen_point(3, joy1, joy2, gait, self.origin_point)
+        self.new_points[3] = self.walk_class.gen_point(4, joy1, joy2, gait, self.origin_point)
+        self.new_points[4] = self.walk_class.gen_point(5, joy1, joy2, gait, self.origin_point)
+        self.new_points[5] = self.walk_class.gen_point(6, joy1, joy2, gait, self.origin_point)
         self.move(1, self.new_points[0])
         self.move(2, self.new_points[1])
         self.move(3, self.new_points[2])
@@ -67,6 +68,7 @@ class Control:
         self.move(5, self.new_points[4])
         self.move(6, self.new_points[5])
         self.last_points = self.new_points
+
 
     def draw(self):
         print(self.test_point)

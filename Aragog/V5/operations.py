@@ -1,14 +1,5 @@
 import math
 
-
-#def max(val, min, max):
-#    if val < min:
-#        return min
-#    elif val > max:
-#        return max
-#    else:
-#        return val
-
 def constrain(val, min_val, max_val):
     return min(max_val, max(min_val, val))
 
@@ -21,6 +12,6 @@ def lerp(val1, val2, t):
     return val1 * (1.0 - t) + (val2 * t)
 
 
-def calc_hypotenuse(x, y):
+def hypotenuse(x, y):
     return math.sqrt(x**2+y**2)
 

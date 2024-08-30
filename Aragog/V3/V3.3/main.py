@@ -44,15 +44,15 @@ try:
         pressed_buttons = controller.get_pressed_buttons()
         #print(Joystick_L)
         if Joystick_L != None and Joystick_R != None:
-            control.walk(Joystick_L["dir"], Joystick_L["speed"], [Joystick_R["x"], Joystick_R["y"]], gait=gait)# Joystick_L["dir"]
+            control.walk(Joystick_L["dir"], Joystick_L["speed"], [Joystick_R["x"], Joystick_R["y"]], gait)# Joystick_L["dir"]
             # control.walk_to_home_pos()
         elif Joystick_L != None and Joystick_R == None:
-            control.walk(Joystick_L["dir"], Joystick_L["speed"], [0, 0], gait=gait)  # Joystick_L["dir"]
+            control.walk(Joystick_L["dir"], Joystick_L["speed"], [0, 0], gait)  # Joystick_L["dir"]
 
         elif Joystick_R != None and Joystick_L == None:
-            control.walk(0, 0, [Joystick_R["x"], Joystick_R["y"]], gait=gait)
+            control.walk(0, 0.4, [Joystick_R["x"], Joystick_R["y"]], gait)
         #control.rotate()
-        time.sleep(0.05)
+        time.sleep(0.02)
         #time.sleep(0.1)
     #time.sleep(0.5)
 
@@ -61,5 +61,5 @@ try:
 
 
 except KeyboardInterrupt:
-    #control.disable_force(254)
+    control.disable_force(254)
     control.close()
