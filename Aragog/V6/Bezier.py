@@ -1,7 +1,4 @@
-import math
-import matplotlib.pyplot as plt
-from scipy.integrate import quad
-from scipy.optimize import newton
+
 
 def binomial_coefficient(n, k):
     result = 1

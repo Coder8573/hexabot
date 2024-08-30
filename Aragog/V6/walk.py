@@ -1,6 +1,4 @@
 import math
-from distutils.command.config import config
-
 
 import operations
 import Bezier
