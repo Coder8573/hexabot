@@ -8,7 +8,7 @@ controller = controller()
 gait = 1
 try:
     #control.test()
-    # control.home((180, 0, -80))
+    control.home((180, 0, -120))
     while True:
     #for i in range(len(control.walk_points)):
         Joystick_L = controller.Joystick_L()
