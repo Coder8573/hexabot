@@ -1,65 +1,50 @@
 import time
 
-from control import Control
+from control import control
 from controller import controller
 
-control = Control("COM13")
+control = control("COM13")
 controller = controller()
-gait = 1
+#control.plot_walk()
 
 try:
-    #control.test()
-    # control.home((180, 0, -80))
+    #time.sleep(1)
+    control.home()
+    #time.sleep(2)
     while True:
     #for i in range(len(control.walk_points)):
         Joystick_L = controller.Joystick_L()
-        Joystick_R = controller.Joystick_R()
-        L1 = controller.get_pressed_buttons(9)
-        R1 = controller.get_pressed_buttons(10)
-        Triangle = controller.get_pressed_buttons(3)
-        Square = controller.get_pressed_buttons(2)
-        if L1 or R1:
-            gait = gait + R1 - L1
-            if gait > 2:
-                gait = 0
-            if gait < 0:
-                gait = 2
-            print(f"gait: {gait}")
-            while L1 or R1:
-                L1 = controller.get_pressed_buttons(9)
-                R1 = controller.get_pressed_buttons(10)
-
-        if Triangle:
-            print("reset")
-            control.reset()
-            while Triangle:
-                Triangle = controller.get_pressed_buttons(3)
-
-        if Square:
-            print("draw")
-            control.draw()
-            while Square:
-                Square = controller.get_pressed_buttons(2)
-
-        pressed_buttons = controller.get_pressed_buttons()
         #print(Joystick_L)
-        if Joystick_L != None and Joystick_R != None:
-            control.walk([Joystick_L["x"], Joystick_L["y"]], [Joystick_R["x"], Joystick_R["y"]], gait=gait)# Joystick_L["dir"]
-            # control.walk_to_home_pos()
-        elif Joystick_L != None and Joystick_R == None:
-            control.walk([Joystick_L["x"], Joystick_L["y"]], [0, 0], gait=gait)  # Joystick_L["dir"]
-
-        elif Joystick_R != None and Joystick_L == None:
-            control.walk([0, 0], [Joystick_R["x"], Joystick_R["y"]], gait=gait)
-        #control.rotate()
-        time.sleep(0.005)
+        if Joystick_L != None:
+            control.walk(Joystick_L["dir"], Joystick_L["speed"], method=0)# Joystick_L["dir"]
+        time.sleep(0.02)
         #time.sleep(0.1)
     #time.sleep(0.5)
 
     control.disable_force(254)
     control.close()
 
+# time.sleep(1)
+# control.pre_move_local_coord(1, [150, 0, -80])
+# control.pre_move_local_coord(3, [150, 0, -80])
+# control.pre_move_local_coord(4, [150, 0, -80])
+# control.pre_move_local_coord(6, [150, 0, -80])
+# control.execute_move()
+#
+# time.sleep(1)
+# control.pre_move(1, [270, 103.923, -80])
+# control.pre_move(3, [270, -103.923, -80])
+# control.pre_move(4, [-270, -103.923, -80])
+# control.pre_move(6, [-210, 103.923, -80])
+# control.execute_move()
+#
+# time.sleep(1)
+# control.pre_move(1, [270, 103.923, -160])
+# control.pre_move(3, [270, -103.923, -160])
+# control.pre_move(4, [-270, -103.923, -160])
+# control.pre_move(6, [-270, 103.923, -160])
+# control.execute_move()
 
 except KeyboardInterrupt:
-    #control.disable_force(254)
+    control.disable_force(254)
     control.close()

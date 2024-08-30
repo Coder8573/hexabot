@@ -1,7 +1,5 @@
 import math
 
-from scipy.constants import point
-
 import config
 
 class calc():

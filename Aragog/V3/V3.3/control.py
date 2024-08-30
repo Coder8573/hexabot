@@ -1,13 +1,8 @@
-import time
-from distutils.core import setup_keywords
-
 import serial
 import matplotlib.pyplot as plt
-from pygame import Vector3
 
 import kinematics
 import walk
-import Bezier
 
 
 class Control:

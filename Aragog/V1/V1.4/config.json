@@ -24,12 +24,12 @@
         103.923
     ],
     "legMountAngle": [
-        30,
-        90,
-        150,
-        210,
-        270,
-        330
+        60.0,
+        0.0,
+        -60.0,
+        -120.0,
+        -180.0,
+        -240.0
     ],
     "legScale": [
         [1, -1, -1],
@@ -39,10 +39,10 @@
         [1, -1, -1],
         [1, 1, 1]
     ],
-    "legJoint1ToJoint2": 48.0,
+    "legJoint1ToJoint2": 40.0,
     "legJoint2ToJoint3": 120.0,
-    "legJoint3ToTip": 180.0,
+    "legJoint3ToTip": 160.0,
 
-    "step_length": 120,
-    "step_height": 120
+    "step_length": 160,
+    "step_height": 100
 }
