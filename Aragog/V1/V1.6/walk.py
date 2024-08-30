@@ -153,10 +153,11 @@ class Walk_Class:
 
         max_distance = 0
         for i in range(6):
-            distance = vectors.distance(vectors.rotate([self.origin_point[0]+120, self.origin_point[1]], config.data["legMountAngle"][i]-90, [0, 0]), rotation_point)
+            distance = vectors.distance(
+                vectors.rotate([self.origin_point[0] + 120, self.origin_point[1]], config.data["legMountAngle"][i] - 90, [0, 0]), rotation_point)
             if distance > max_distance:
                 max_distance = distance
-        current_distance = vectors.distance(vectors.rotate([self.origin_point[0]+120, self.origin_point[1]], config.data["legMountAngle"][leg-1]-90, [0, 0]), rotation_point)
+        current_distance = vectors.distance(vectors.rotate([self.origin_point[0] + 120, self.origin_point[1]], config.data["legMountAngle"][leg - 1] - 90, [0, 0]), rotation_point)
         if x < 0:
             rotation_step_length = -(self.step_length * (current_distance / max_distance))
         else:
@@ -219,36 +220,46 @@ class Walk_Class:
             if self.legStates[leg-1] != 1:
                 self.legStates[leg - 1] = 1
 
-            straight_point_1 = vectors.add_point(vectors.rotate([0, 0.5*self.step_length, 0], -walk_dir+config.data["legMountAngle"][leg-1]-90, [0,0]), self.origin_point)
-            straight_point_2 = vectors.add_point(vectors.rotate([0, -0.5*self.step_length, 0], -walk_dir+config.data["legMountAngle"][leg-1]-90, [0,0]), self.origin_point)
+            straight_point_1 = vectors.add_point(
+                vectors.rotate([0, 0.5 * self.step_length, 0], -walk_dir + config.data["legMountAngle"][leg - 1] - 90, [0, 0]), self.origin_point)
+            straight_point_2 = vectors.add_point(
+                vectors.rotate([0, -0.5 * self.step_length, 0], -walk_dir + config.data["legMountAngle"][leg - 1] - 90, [0, 0]), self.origin_point)
             straight_point = Bezier.get_point_on_curve_3([straight_point_1, straight_point_2], 2, operations.map_value(t, 0, self.push_fraction, 0, 1))
             #straight_point = [0, 0, 0]
 
             rotation_angle, rotation_step_length = self.get_rotations_angle(leg, joy2[0])
             #print(leg, rotation_angle, rotation_step_length)
-            rotate_point_1 = vectors.add_point(vectors.rotate([0, 0.5*rotation_step_length, 0], rotation_angle, [0,0]), self.origin_point)
-            rotate_point_2 = vectors.add_point(vectors.rotate([0, -0.5*rotation_step_length, 0], rotation_angle, [0,0]), self.origin_point)
+            rotate_point_1 = vectors.add_point(
+                vectors.rotate([0, 0.5 * rotation_step_length, 0], rotation_angle, [0, 0]), self.origin_point)
+            rotate_point_2 = vectors.add_point(
+                vectors.rotate([0, -0.5 * rotation_step_length, 0], rotation_angle, [0, 0]), self.origin_point)
             rotate_point = Bezier.get_point_on_curve_3((rotate_point_1, rotate_point_2), 2, operations.map_value(t, 0, self.push_fraction, 0, 1))
 
-            return vectors.divide_with_val(vectors.add_point(vectors.multi_with_val(straight_point, abs(forward_amount)), vectors.multi_with_val(rotate_point, abs(turn_amount))), weightSum)
+            return vectors.divide_with_val(
+                vectors.add_point(vectors.multi_with_val(straight_point, abs(forward_amount)), vectors.multi_with_val(rotate_point, abs(turn_amount))), weightSum)
 
         else:
             if self.legStates[leg-1] != 2:
                 self.legStates[leg - 1] = 2
 
             #print(walk_dir)
-            straight_point_1 = vectors.add_point(vectors.rotate([0, -0.5*self.step_length, 0], -walk_dir+config.data["legMountAngle"][leg-1]-90, [0,0]), self.origin_point)
-            straight_point_2 = vectors.add_point(self.origin_point, [0, 0, self.step_height*self.step_height_multiplier])
-            straight_point_3 = vectors.add_point(vectors.rotate([0, 0.5*self.step_length, 0], -walk_dir+config.data["legMountAngle"][leg-1]-90, [0,0]), self.origin_point)
+            straight_point_1 = vectors.add_point(
+                vectors.rotate([0, -0.5 * self.step_length, 0], -walk_dir + config.data["legMountAngle"][leg - 1] - 90, [0, 0]), self.origin_point)
+            straight_point_2 = vectors.add_point(self.origin_point, [0, 0, self.step_height * self.step_height_multiplier])
+            straight_point_3 = vectors.add_point(
+                vectors.rotate([0, 0.5 * self.step_length, 0], -walk_dir + config.data["legMountAngle"][leg - 1] - 90, [0, 0]), self.origin_point)
             straight_point = Bezier.get_point_on_curve_3([straight_point_1, straight_point_2, straight_point_3], 3, operations.map_value(t, self.push_fraction, 1, 0, 1))
             #straight_point = [0, 0, 0]
 
             rotation_angle, rotation_step_length = self.get_rotations_angle(leg, joy2[0])
-            rotate_point_1 = vectors.add_point(vectors.rotate([0, -0.5*rotation_step_length, 0], rotation_angle, [0,0]), self.origin_point)
-            rotate_point_2 = vectors.add_point(self.origin_point, [0, 0, self.step_height*self.step_height_multiplier])
-            rotate_point_3 = vectors.add_point(vectors.rotate([0, 0.5*rotation_step_length, 0], rotation_angle, [0,0]), self.origin_point)
+            rotate_point_1 = vectors.add_point(
+                vectors.rotate([0, -0.5 * rotation_step_length, 0], rotation_angle, [0, 0]), self.origin_point)
+            rotate_point_2 = vectors.add_point(self.origin_point, [0, 0, self.step_height * self.step_height_multiplier])
+            rotate_point_3 = vectors.add_point(
+                vectors.rotate([0, 0.5 * rotation_step_length, 0], rotation_angle, [0, 0]), self.origin_point)
             rotate_point = Bezier.get_point_on_curve_3((rotate_point_1, rotate_point_2, rotate_point_3), 3, operations.map_value(t, self.push_fraction, 1, 0, 1))
-            return vectors.divide_with_val(vectors.add_point(vectors.multi_with_val(straight_point, abs(forward_amount)), vectors.multi_with_val(rotate_point, abs(turn_amount))), weightSum)
+            return vectors.divide_with_val(
+                vectors.add_point(vectors.multi_with_val(straight_point, abs(forward_amount)), vectors.multi_with_val(rotate_point, abs(turn_amount))), weightSum)
 
 #
             #straight_point_1 = [0, 0, 0]

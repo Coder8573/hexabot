@@ -1,6 +1,5 @@
 import math
 
-from scipy.constants import point
 from scipy.integrate import quad
 from scipy.optimize import newton
 
@@ -168,8 +167,8 @@ def gen_point(leg, walk_progress, turn_strength, turn_dir, dir, ground_touching_
         t = map_value(walk_progress, 0.5 * ground_touching_percentage, 100 - (0.5 * ground_touching_percentage), 0, 1)
         t_i = inverse_L(curve_top_len*t, curve_top_boundary, curve_top_len)
         point = bezier_curve(t_i, curve_top_boundary)
-        point = [math.sin(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[0],
-                 math.cos(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[1],
+        point = [math.sin(math.radians((config.data["legMountAngle"][leg - 1] + dir) * (1 - turn_strength))) * point[0] + origin_point[0],
+                 math.cos(math.radians((config.data["legMountAngle"][leg - 1] + dir) * (1 - turn_strength))) * point[0] + origin_point[1],
                  point[1] + origin_point[2]]
 
         #point = [math.sin(math.radians((config.data["legMountAngle"][leg - 1] + dir)*(1-turn_strength))) * point[0] + origin_point[0],
@@ -221,8 +220,8 @@ def gen_next_point(leg, walk_progress, stepsize, turn_strength, turn_dir, dir, g
 
 
 def point_to_leg_dir(leg, point, dir):
-    point = [math.sin(math.radians(config.data["legMountAngle"][leg-1]+dir))*point[1],
-             math.cos(math.radians(config.data["legMountAngle"][leg-1]+dir))*point[1],
+    point = [math.sin(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[1],
+             math.cos(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[1],
              point[2]]
     return point
 

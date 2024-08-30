@@ -4,7 +4,6 @@ from scipy.integrate import quad
 from scipy.optimize import newton
 
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 
 import config
 
@@ -202,9 +201,9 @@ def gen_next_path_point(leg, stepsize, walk_progress, ground_touching_prozentage
 #    return points
 
 def path_point_to_local_coord(leg, point, origin_point, dir):
-    point = [math.sin(math.radians(config.data["legMountAngle"][leg-1]+dir))*point[1]+origin_point[0],
-             math.cos(math.radians(config.data["legMountAngle"][leg-1]+dir))*point[1]+origin_point[1],
-             point[2]+origin_point[2]]
+    point = [math.sin(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[1] + origin_point[0],
+             math.cos(math.radians(config.data["legMountAngle"][leg - 1] + dir)) * point[1] + origin_point[1],
+             point[2] + origin_point[2]]
     return point
 
 def map_value(val, old_min, old_max, new_min, new_max):

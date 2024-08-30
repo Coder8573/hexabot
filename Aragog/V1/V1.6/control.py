@@ -1,15 +1,11 @@
 import time
-from distutils.core import setup_keywords
 
 import serial
 import matplotlib.pyplot as plt
-from Tools.demo.sortvisu import steps
-from pygame import Vector3
 
 import kinematics
 import walk
-import Bezier
-import operations
+
 
 class Control:
     def __init__(self, port):

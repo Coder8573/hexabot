@@ -1,7 +1,5 @@
 import math
 
-from scipy.constants import point
-
 import config
 
 class calc():
@@ -110,21 +108,26 @@ class calc():
         M2 = self.cam2(coord, M1)
         M3 = self.cam3(coord, M1)
         #print([M1, M2, M3])
-        return [int(round(((-180*(config.data["legScale"][leg-1][0]-1))+M1*config.data["legScale"][leg-1][0])*(512/45), 0)),
-                int(round(((-180*(config.data["legScale"][leg-1][1]-1))+M2*config.data["legScale"][leg-1][1])*(512/45), 0)),
-                int(round(((-180*(config.data["legScale"][leg-1][2]-1))+M3*config.data["legScale"][leg-1][2])*(512/45), 0))]
+        return [int(round(((-180 * (config.data["legScale"][leg - 1][0] - 1)) + M1 *
+                           config.data["legScale"][leg - 1][0]) * (512 / 45), 0)),
+                int(round(((-180 * (config.data["legScale"][leg - 1][1] - 1)) + M2 *
+                           config.data["legScale"][leg - 1][1]) * (512 / 45), 0)),
+                int(round(((-180 * (config.data["legScale"][leg - 1][2] - 1)) + M3 *
+                           config.data["legScale"][leg - 1][2]) * (512 / 45), 0))]
 
 
 
     def local_coord_to_abs_coord(self, coord, leg, origin_point):
-        point = [coord[0] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.sin(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountX"][leg-1],
-                 coord[1] + math.sqrt(origin_point[0]**2+origin_point[1]**2)*math.cos(math.radians(config.data["legMountAngle"][leg-1])+math.atan(origin_point[1]/origin_point[0])) + config.data["legMountY"][leg-1],
+        point = [coord[0] + math.sqrt(origin_point[0]**2+origin_point[1]**2) * math.sin(math.radians(
+            config.data["legMountAngle"][leg - 1]) + math.atan(origin_point[1] / origin_point[0])) + config.data["legMountX"][leg - 1],
+                 coord[1] + math.sqrt(origin_point[0]**2+origin_point[1]**2) * math.cos(math.radians(
+                     config.data["legMountAngle"][leg - 1]) + math.atan(origin_point[1] / origin_point[0])) + config.data["legMountY"][leg - 1],
                  coord[2]]
         return point
 
 
     def just_calc(self, coord, leg, origin_point):
-        point = [coord[0] + math.sqrt(coord[0]**2+coord[1]**2)*math.sin(math.radians(-config.data["legMountAngle"][leg-1])+math.atan(coord[1]/coord[0])) + origin_point[0],
-                 coord[1] + math.sqrt(coord[0]**2+coord[1]**2)*math.cos(math.radians(-config.data["legMountAngle"][leg-1])+math.atan(coord[1]/coord[0])) + origin_point[1],
+        point = [coord[0] + math.sqrt(coord[0]**2+coord[1]**2) * math.sin(math.radians(-config.data["legMountAngle"][leg - 1]) + math.atan(coord[1] / coord[0])) + origin_point[0],
+                 coord[1] + math.sqrt(coord[0]**2+coord[1]**2) * math.cos(math.radians(-config.data["legMountAngle"][leg - 1]) + math.atan(coord[1] / coord[0])) + origin_point[1],
                  coord[2] + origin_point[2]]
         return point

@@ -1,29 +1,28 @@
 import pygame
 import math
 
-
 class controller():
     def __init__(self):
         pygame.init()
         pygame.joystick.init()
         self.mapping = {
-            0: "Cross",
-            1: "Circle",
-            2: "Square",
-            3: "Triangle",
-            4: "Share",
-            5: "PS",
-            6: "Option",
-            7: "Left_Joystick",
-            8: "Right_Joystick",
-            9: "L1",
-            10: "R1",
-            11: "up",
-            12: "down",
-            13: "left",
-            14: "right",
-            15: "touch"
-        }
+                            0: "Cross",
+                            1: "Circle",
+                            2: "Square",
+                            3: "Triangle",
+                            4: "Share",
+                            5: "PS",
+                            6: "Option",
+                            7: "Left_Joystick",
+                            8: "Right_Joystick",
+                            9: "L1",
+                            10: "R1",
+                            11: "up",
+                            12: "down",
+                            13: "left",
+                            14: "right",
+                            15: "touch"
+                        }
         try:
             self.joystick = pygame.joystick.Joystick(0)
             self.joystick.init()
@@ -79,14 +78,14 @@ class controller():
         #print(f"R: {round(joystick.get_axis(5), 2)}")
         return round(self.joystick.get_axis(5), 2)
 
-    def get_pressed_buttons(self, button=None):
-        pygame.event.pump()
-        if button is None:
-            pressed_buttons = []
-            for i in range(len(self.mapping)):
-                if self.joystick.get_button(i):
-                    #print(f"Button {self.mapping.get(i, 'Unknown')}: Pressed")
-                    pressed_buttons.append(i)
-            return pressed_buttons
-        else:
-            return self.joystick.get_button(button)
+    def get_pressed_buttons(self):
+        pressed_buttons = []
+        for i in range(self.joystick.get_numbuttons()):
+            if self.joystick.get_button(i):
+                print(f"Button {self.mapping.get(i, 'Unknown')}: Pressed")
+                pressed_buttons.append(i)
+        return pressed_buttons
+
+
+
+

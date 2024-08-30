@@ -1,13 +1,7 @@
 import math
 from distutils.command.config import config
-from msilib import Control
 
-from fontTools.misc.arrayTools import Vector
-from pygame import Vector2
-
-from vectors import Vector3, Vector2
 import operations
-import Bezier
 import config
 
 

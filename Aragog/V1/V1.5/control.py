@@ -1,65 +1,68 @@
-import time
-from distutils.core import setup_keywords
-
 import serial
 import matplotlib.pyplot as plt
-from pygame import Vector3
 
 import kinematics
-import walk
-import Bezier
-import operations
+from walk import Walk_Class
+
 
 class Control:
     def __init__(self, port):
-        #self.walk_class = walk.WalkClass()
         self.port = port
         self.packet = []
         self.ser = serial.Serial(port, 1000000, timeout=1)
         self.calc = kinematics.calc()
-        self.walk_class = walk.Walk_Class()
-
-        #print(self.calc.calc_steps_local_coord([180, 0, -120], 2))
         self.current_gait = 1
         self.new_gait = 1
         self.origin_point = [180, 0, -80]
+        self.walk_class = Walk_Class(self.origin_point)
+        self.last_points = [[0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, 0]]
+        self.new_points = [[0, 0, 0],
+                           [0, 0, 0],
+                           [0, 0, 0],
+                           [0, 0, 0],
+                           [0, 0, 0],
+                           [0, 0, 0]]
+
         self.test_point = []
-        self.t = 0
 
 
     def close(self):
         self.ser.close()
 
 
-    def test_move(self, leg, coord):
-        #print(self.calc.just_calc(coord, leg, origin_point), leg)
+    def move(self, leg, coord):
         coord = self.calc.local_coord_to_abs_coord(coord, leg, self.origin_point)
         self.test_point.append(coord)
         #print(f"Leg: {leg}, coord: {coord}")
 
-    def walk(self, walk_vector, turn_vector, gait):
-        #print(f"Walk dir: {walk_dir}, speed: {walk_speed}, turn vector: {turn_vector}, gait: {gait}")
+
+    def walk(self, joy1, joy2, gait):
+        #print(f"Walk dir: {walk_dir}, speed: {walk_speed}, trun vector: {turn_vector}, gait: {gait}")
         self.new_gait = gait
         if self.current_gait != self.new_gait:
             # needs to home
             self.current_gait = self.new_gait
-
-        if self.t > 0.5:
-            self.t = self.t % 1
-        else:
-            self.t = self.t + 0.02
-        walk_vector[0] = operations.map_value(walk_vector[0], -1, 1, -100, 100)
-        walk_vector[1] = operations.map_value(walk_vector[1], -1, 1, -100, 100)
-        turn_vector[0] = operations.map_value(turn_vector[0], -1, 1, -100, 100)
-        turn_vector[1] = operations.map_value(turn_vector[1], -1, 1, -100, 100)
-
-        points = self.walk_class.walk(walk_vector, turn_vector, gait)
-        self.test_move(1, points[0])
-        self.test_move(2, points[1])
-        self.test_move(3, points[2])
-        self.test_move(4, points[3])
-        self.test_move(5, points[4])
-        self.test_move(6, points[5])
+            for i in range(6):
+                self.last_points[i] = self.origin_point
+        #print(self.last_points)
+        self.new_points[0] = self.walk_class.gen_point(1, joy1, joy2, gait, self.origin_point)
+        self.new_points[1] = self.walk_class.gen_point(2, joy1, joy2, gait, self.origin_point)
+        self.new_points[2] = self.walk_class.gen_point(3, joy1, joy2, gait, self.origin_point)
+        self.new_points[3] = self.walk_class.gen_point(4, joy1, joy2, gait, self.origin_point)
+        self.new_points[4] = self.walk_class.gen_point(5, joy1, joy2, gait, self.origin_point)
+        self.new_points[5] = self.walk_class.gen_point(6, joy1, joy2, gait, self.origin_point)
+        self.move(1, self.new_points[0])
+        self.move(2, self.new_points[1])
+        self.move(3, self.new_points[2])
+        self.move(4, self.new_points[3])
+        self.move(5, self.new_points[4])
+        self.move(6, self.new_points[5])
+        self.last_points = self.new_points
 
 
     def draw(self):
@@ -68,7 +71,8 @@ class Control:
 
     def reset(self):
         self.test_point = []
-
+        self.last_points = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        self.new_points = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
 
 
@@ -107,4 +111,5 @@ def plot_3d_points(points):
 
     # Zeige den Plot an
     plt.show()
+
 
