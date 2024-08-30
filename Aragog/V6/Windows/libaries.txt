@@ -1,0 +1,4 @@
+json
+matplotlib
+pyserial
+pygame
