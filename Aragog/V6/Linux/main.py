@@ -8,7 +8,7 @@ control = Control("/dev/ttyACM0")
 controller = controller()
 gait = 1
 try:
-    start = time.process_time()
+    start = time.time_ns()
     #control.test()
     control.home((180, 0, -120))
     while True:
@@ -55,7 +55,7 @@ try:
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
-        while start+0.01 > time.process_time():
+        while start+10 > time.time_ns():
             print("test")
     #time.sleep(0.5)
 
