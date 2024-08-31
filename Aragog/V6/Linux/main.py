@@ -11,7 +11,7 @@ controller = controller()
 gait = 1
 try:
     #control.test()
-    control.home(config.data("origin_point")[0:-1])
+    control.home(config.data["origin_point"])
     while True:
     #for i in range(len(control.walk_points)):
         cycle = cycle + 1

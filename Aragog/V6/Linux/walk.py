@@ -28,7 +28,7 @@ class Walk_Class:
         self.speed_multiplier = 1.6
         self.step_height_multiplier = 1
 
-        self.origin_point = config.data("origin_point")
+        self.origin_point = config.data["origin_point"]
         self.current_point = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
     def gait_parameter(self, gait):

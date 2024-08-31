@@ -19,7 +19,7 @@ class Control:
         #print(self.calc.calc_steps_local_coord([180, 0, -120], 2))
         self.current_gait = 1
         self.new_gait = 1
-        self.origin_point = config.data("origin_point")
+        self.origin_point = config.data["origin_point"]
         self.test_point = []
         self.t = 0
 
