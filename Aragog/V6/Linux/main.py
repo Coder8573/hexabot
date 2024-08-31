@@ -3,6 +3,7 @@ from itertools import cycle
 
 from control import Control
 from controller import controller
+import config
 
 cycle = 0
 control = Control("/dev/ttyACM0")
@@ -10,7 +11,7 @@ controller = controller()
 gait = 1
 try:
     #control.test()
-    control.home((180, 0, -120))
+    control.home(config.data("origin_point"))
     while True:
     #for i in range(len(control.walk_points)):
         cycle = cycle + 1

@@ -44,5 +44,6 @@
     "legJoint3ToTip": 180.0,
 
     "step_length": 100,
-    "step_height": 120
+    "step_height": 120,
+    "origin_point": [180, 0, -120]
 }
