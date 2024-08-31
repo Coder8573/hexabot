@@ -8,11 +8,11 @@ control = Control("/dev/ttyACM0")
 controller = controller()
 gait = 1
 try:
-    start = time.time_ns()
     #control.test()
     control.home((180, 0, -120))
     while True:
     #for i in range(len(control.walk_points)):
+        start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
         L1 = controller.get_pressed_buttons(9)
@@ -55,7 +55,7 @@ try:
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
-        while (start+100000000000000000000) > time.time_ns():
+        while (start+5) > time.time():
             print("test")
     #time.sleep(0.5)
 
