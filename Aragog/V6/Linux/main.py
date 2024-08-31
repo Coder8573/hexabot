@@ -1,12 +1,15 @@
 import time
+import timeit
 
 from control import Control
 from controller import controller
+
 
 control = Control("/dev/ttyACM0")
 controller = controller()
 gait = 1
 try:
+    start = timeit.timeit()
     #control.test()
     control.home((180, 0, -120))
     while True:
@@ -53,6 +56,8 @@ try:
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
+        while start+0.01 > timeit.timeit():
+            pass
     #time.sleep(0.5)
 
     control.disable_force(254)
