@@ -43,6 +43,6 @@
     "legJoint2ToJoint3": 120.0,
     "legJoint3ToTip": 180.0,
 
-    "step_length": 160,
+    "step_length": 100,
     "step_height": 120
 }
