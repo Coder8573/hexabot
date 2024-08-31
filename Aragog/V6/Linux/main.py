@@ -1,9 +1,10 @@
 import time
+from itertools import cycle
 
 from control import Control
 from controller import controller
 
-
+cycle = 0
 control = Control("/dev/ttyACM0")
 controller = controller()
 gait = 1
@@ -12,6 +13,7 @@ try:
     control.home((180, 0, -120))
     while True:
     #for i in range(len(control.walk_points)):
+        cycle = cycle + 1
         start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
@@ -55,8 +57,8 @@ try:
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
-        while (start+5) > time.time():
-            print("test")
+        while (start+0.01) > time.time():
+            print(cycle)
     #time.sleep(0.5)
 
     control.disable_force(254)
