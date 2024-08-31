@@ -107,7 +107,7 @@ class calc():
         #print(coord)
         return coord
 
-    def calc_steps_local_coord(self, coord, leg):
+    def steps_local_coord(self, coord, leg):
         M1 = self.cam1(coord)
         M2 = self.cam2(coord, M1)
         M3 = self.cam3(coord, M1)

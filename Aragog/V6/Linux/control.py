@@ -19,12 +19,12 @@ class Control:
         #print(self.calc.calc_steps_local_coord([180, 0, -120], 2))
         self.current_gait = 1
         self.new_gait = 1
-        self.origin_point = [200, 0, -80]
+        self.origin_point = [180, 0, -80]
         self.test_point = []
         self.t = 0
 
     def move(self, leg, coord):  # , direction, speed, rotation
-        steps = self.calc.calc_steps_local_coord(coord, leg)
+        steps = self.calc.steps_local_coord(coord, leg)
         if not self.packet:
             self.packet = [0xFF, 0xFF, 0xFE, 0, 0x83, 0x2A, 0x06,
                            (leg*3)-2, self.calc_low_byte(steps[0]), self.calc_high_byte(steps[0]), 0X00, 0X00, 0X00, 0X00,
