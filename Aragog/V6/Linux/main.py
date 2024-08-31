@@ -55,7 +55,7 @@ try:
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
-        while start+10 > time.time_ns():
+        while start+10000 > time.time_ns():
             print("test")
     #time.sleep(0.5)
 
