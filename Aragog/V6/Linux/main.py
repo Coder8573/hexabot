@@ -59,7 +59,7 @@ try:
         #time.sleep(0.01)
         #time.sleep(0.1)
         print(time.time()-start)
-        while (start+0.01) > time.time():
+        while (start+0.005) > time.time():
             pass
     #time.sleep(0.5)
 

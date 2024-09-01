@@ -131,7 +131,7 @@ class Walk_Class:
         forward_amount = operations.constrain(operations.calc_hypotenuse(joy1[0], joy1[1]), 0, 1)
         turn_amount = joy2[0]
 
-        progressChangeAmount = (max(abs(forward_amount),abs(turn_amount)) * self.speed_multiplier)/200
+        progressChangeAmount = (max(abs(forward_amount),abs(turn_amount)) * self.speed_multiplier)/400
         #print(progressChangeAmount)
         for i in range(6):
             self.walk_progress[i] = (self.walk_progress[i] + progressChangeAmount) % 1
