@@ -18,8 +18,8 @@ try:
         start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
-        L1 = controller.get_pressed_buttons(9)
-        R1 = controller.get_pressed_buttons(10)
+        L1 = controller.get_pressed_buttons(4)
+        R1 = controller.get_pressed_buttons(5)
         #Triangle = controller.get_pressed_buttons(2)
         #Square = controller.get_pressed_buttons(3)
         if L1 or R1:
@@ -30,8 +30,8 @@ try:
                 gait = 5
             print(f"gait: {gait}")
             while L1 or R1:
-                L1 = controller.get_pressed_buttons(9)
-                R1 = controller.get_pressed_buttons(10)
+                L1 = controller.get_pressed_buttons(4)
+                R1 = controller.get_pressed_buttons(5)
 
         #if Triangle:
         #    print("reset")
