@@ -9,25 +9,22 @@ class controller():
         pygame.joystick.init()
         self.joy_l_pos = [0, 0]
         self.joy_r_por = [0, 0]
-        self.joy_l_smoothing = 0.012
-        self.joy_r_smoothing = 0.012
+        self.joy_l_smoothing = 1
+        self.joy_r_smoothing = 1
         self.mapping = {
             0: "Cross",
             1: "Circle",
-            2: "Square",
-            3: "Triangle",
-            4: "Share",
-            5: "PS",
-            6: "Option",
-            7: "Left_Joystick",
-            8: "Right_Joystick",
-            9: "L1",
-            10: "R1",
-            11: "up",
-            12: "down",
-            13: "left",
-            14: "right",
-            15: "touch"
+            2: "Triangle",
+            3: "Square",
+            4: "L1",
+            5: "R1",
+            6: "L2",
+            7: "R2",
+            8: "Share",
+            9: "Option",
+            10: "PS",
+            11: "Left_Joystick",
+            12: "Right_Joystick"
         }
         try:
             self.joystick = pygame.joystick.Joystick(0)
@@ -58,12 +55,12 @@ class controller():
             #print(f"Angle L: {dir}; Joystick L: {x}, {y}")
             self.joy_l_pos = [operations.lerp(self.joy_l_pos[0], x, self.joy_l_smoothing), operations.lerp(self.joy_l_pos[1], y, self.joy_l_smoothing)]
             #self.joy_l_pos = [x,y]
-            return {"dir": dir, "speed": speed, "x": self.joy_l_pos[0], "y": self.joy_l_pos[1], "vector": self.joy_l_pos, "vector_raw": [x, y]}
+            return {"dir": dir, "speed": speed, "x": self.joy_l_pos[0], "y": self.joy_l_pos[1], "vector": self.joy_l_pos}
 
     def Joystick_R(self):
         pygame.event.pump()  # Ereignisse abfragen, um den Joystick-Status zu aktualisieren
-        x = round(self.joystick.get_axis(2), 2)
-        y = round(self.joystick.get_axis(3), 2)
+        x = round(self.joystick.get_axis(3), 2)
+        y = round(self.joystick.get_axis(4), 2)
         if math.sqrt(x ** 2 + y ** 2) > 0.2:
             if x > 0:
                 dir = math.degrees(math.atan(y / x)) + 90
@@ -78,13 +75,16 @@ class controller():
             # print(f"Angle L: {dir}; Joystick L: {x}, {y}")
             self.joy_r_por = [operations.lerp(self.joy_r_por[0], x, self.joy_r_smoothing), operations.lerp(self.joy_r_por[1], y, self.joy_r_smoothing)]
             #self.joy_r_pos = [x, y]
-            return {"dir": dir, "speed": speed, "x": self.joy_r_por[0], "y": self.joy_r_por[1], "vector": self.joy_r_por, "vector_raw": [x, y]}
+            return {"dir": dir, "speed": speed, "x": self.joy_r_por[0], "y": self.joy_r_por[1], "vector": self.joy_r_por}
 
+    #not working
     def Trigger_L(self):
+        pygame.event.pump()
         #print(f"L: {round(joystick.get_axis(4), 2)}")
-        return round(self.joystick.get_axis(4), 2)
+        return round(self.joystick.get_axis(2), 2)
 
     def Trigger_R(self):
+        pygame.event.pump()
         #print(f"R: {round(joystick.get_axis(5), 2)}")
         return round(self.joystick.get_axis(5), 2)
 
@@ -99,3 +99,7 @@ class controller():
             return pressed_buttons
         else:
             return self.joystick.get_button(button)
+
+#con = controller()
+#while 1:
+#    print(con.Joystick_L(), con.Joystick_R())
