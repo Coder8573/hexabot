@@ -31,8 +31,8 @@ try:
                 gait = 6
             print(f"gait: {gait}")
             while L1 or R1:
-                L1 = controller.get_pressed_buttons(9)
-                R1 = controller.get_pressed_buttons(10)
+                L1 = controller.get_pressed_buttons(4)
+                R1 = controller.get_pressed_buttons(5)
 
         #if Triangle:
         #    print("home")
