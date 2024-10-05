@@ -54,6 +54,8 @@ try:
         elif gait > 0:
             if Joystick_L["vector_raw"] != [0, 0] or Joystick_R["vector_raw"] != [0, 0]:
                 control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)
+        else:
+            print(controller.get_inputs())
 
         while (start+0.005) > time.time():
             pass
