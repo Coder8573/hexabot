@@ -21,6 +21,10 @@ walk_mode = 1
 
 while True:
     print(controller.get_pressed_buttons())
+    print(controller.Joystick_L())
+    print(controller.Joystick_R())
+    print(controller.Trigger_L())
+    print(controller.Trigger_R())
 
 
 
