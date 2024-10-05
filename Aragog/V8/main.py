@@ -57,8 +57,8 @@ try:
         else:
             print(controller.get_inputs())
 
-        while (start+0.005) > time.time():
-            pass
+        #while (start+0.005) > time.time():
+        #    pass
 
 
 except KeyboardInterrupt:
