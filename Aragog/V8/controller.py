@@ -46,7 +46,11 @@ class controller():
                 "Left_Joystick": 11,
                 "Right_Joystick": 12,
                 "L1": 4,
-                "R1": 5
+                "R1": 5,
+                "1": 13,
+                "2": 14,
+                "3": 15,
+                "4": 16
             }
             self.analog_mapping = {
                 "Joy_Left_x": 0,
@@ -127,6 +131,7 @@ class controller():
             for i in range(self.button_mapping[max(self.button_mapping, key=self.button_mapping.get)]+1):
                 if self.joystick.get_button(i):
                     #print(f"Button {self.mapping.get(i, 'Unknown')}: Pressed")
+                    print(i)
                     try:
                         pressed_buttons.append({value:key for key, value in self.button_mapping.items()}[i])
                     except KeyError:
