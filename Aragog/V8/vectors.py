@@ -2,31 +2,31 @@ import math
 
 
 def to_string(point1):
-    if len(point1) < 3:
+    if len(point1) == 2:
         return f"({point1[0]} | {point1[1]})"
     else:
         return f"({point1[0]} | {point1[1]} | {point1[2]})"
 
 def add_point(point1, point2):
-    if len(point1) < 3:
+    if len(point1) == 2:
         return [point1[0] + point2[0], point1[1] + point2[1]]
     else:
         return [point1[0] + point2[0], point1[1] + point2[1], point1[2] + point2[2]]
 
 def subtract_point(point1, point2):
-    if len(point1) < 3:
+    if len(point1) == 2:
         return [point1[0] - point2[0], point1[1] - point2[1]]
     else:
         return [point1[0] - point2[0], point1[1] - point2[1], point1[2] - point2[2]]
 
 def multi_with_val(point1, val):
-    if len(point1) < 3:
+    if len(point1) == 2:
         return [point1[0] * val, point1[1] * val]
     else:
         return [point1[0] * val, point1[1] * val, point1[2] * val]
 
 def multi_with_point(point1, point2):
-    if len(point1) < 3:
+    if len(point1) == 2:
         return [point1[0] * point2[0], point1[1] * point2[1]]
     else:
         return [point1[0] * point2[0], point1[1] * point2[1], point1[2] * point2[2]]
