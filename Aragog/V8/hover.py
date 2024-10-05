@@ -47,9 +47,9 @@ class Hover_Class:
                 move_dir = 0
 
 
-        displacement = [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
-                        joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
-                        (1+l2)-(1+r2)]
+        displacement = [self.speed_multiplier*joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
+                        self.speed_multiplier*joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
+                        self.speed_multiplier*((1+l2)-(1+r2))*0.5]
         rotation = 0
 
         new_point = vectors.add_point(self.points[leg-1], displacement)
