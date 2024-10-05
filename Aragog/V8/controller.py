@@ -86,7 +86,7 @@ class controller():
             #print(f"Angle L: {dir}; Joystick L: {x}, {y}")
             self.joy_l_pos = [operations.lerp(self.joy_l_pos[0], x, self.joy_l_smoothing), operations.lerp(self.joy_l_pos[1], y, self.joy_l_smoothing)]
             #self.joy_l_pos = [x,y]
-            return {"dir": dir, "speed": speed, "x": self.joy_l_pos[0], "y": self.joy_l_pos[1], "vector": self.joy_l_pos}
+            return {"dir": dir, "speed": speed, "x": self.joy_l_pos[0], "y": self.joy_l_pos[1], "vector": self.joy_l_pos, "vector_raw": [x, y]}
 
     def Joystick_R(self):
         pygame.event.pump()  # Ereignisse abfragen, um den Joystick-Status zu aktualisieren
@@ -106,7 +106,7 @@ class controller():
             # print(f"Angle L: {dir}; Joystick L: {x}, {y}")
             self.joy_r_por = [operations.lerp(self.joy_r_por[0], x, self.joy_r_smoothing), operations.lerp(self.joy_r_por[1], y, self.joy_r_smoothing)]
             #self.joy_r_pos = [x, y]
-            return {"dir": dir, "speed": speed, "x": self.joy_r_por[0], "y": self.joy_r_por[1], "vector": self.joy_r_por}
+            return {"dir": dir, "speed": speed, "x": self.joy_r_por[0], "y": self.joy_r_por[1], "vector": self.joy_r_por, "vector_raw": [x, y]}
 
     #not working
     def Trigger_L(self):

@@ -17,7 +17,7 @@ else:
     quit("Operating system not supported")
 
 gait = 1
-walk_mode = 1
+walk_mode = 0
 
 try:
     control.home(config.data["origin_point"])
