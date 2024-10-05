@@ -16,7 +16,7 @@ elif system_check.operating_system == "Linux":
 else:
     quit("Operating system not supported")
 
-gait = 1
+gait = 0
 
 try:
     control.home(config.data["origin_point"])
@@ -36,8 +36,8 @@ try:
             gait = gait + R1 - L1
             if gait > 6:
                 gait = 0
-            if gait < 0:
-                gait = 6
+            if gait < -2:
+                gait = 0
             print(f"gait: {gait}")
             while L1 or R1:
                 L1 = controller.get_pressed_buttons("L1")
@@ -49,9 +49,9 @@ try:
             while Triangle:
                 Triangle = controller.get_pressed_buttons("Triangle")
 
-        if gait == 0:
-            control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2)
-        else:
+        if gait < 0:
+            control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2, gait)
+        elif gait > 0:
             if Joystick_L["vector_raw"] != [0, 0] or Joystick_R["vector_raw"] != [0, 0]:
                 control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)
 
