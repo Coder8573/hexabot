@@ -19,26 +19,16 @@ else:
 gait = 1
 walk_mode = 1
 
-while True:
-    print(controller.get_pressed_buttons())
-    print(controller.Joystick_L())
-    print(controller.Joystick_R())
-    print(controller.Trigger_L())
-    print(controller.Trigger_R())
-    time.sleep(0.1)
-
-
-
 try:
     control.home(config.data["origin_point"])
     while True:
         start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
-        L1 = controller.get_pressed_buttons(9)
-        R1 = controller.get_pressed_buttons(10)
-        Circle = controller.get_pressed_buttons(1)
-        Triangle = controller.get_pressed_buttons(3)
+        L1 = controller.get_pressed_buttons("L1")
+        R1 = controller.get_pressed_buttons("R1")
+        Circle = controller.get_pressed_buttons("Circle")
+        Triangle = controller.get_pressed_buttons("Triangle")
         #Square = controller.get_pressed_buttons(2)
         if L1 or R1:
             gait = gait + R1 - L1
@@ -48,14 +38,14 @@ try:
                 gait = 6
             print(f"gait: {gait}")
             while L1 or R1:
-                L1 = controller.get_pressed_buttons(9)
-                R1 = controller.get_pressed_buttons(10)
+                L1 = controller.get_pressed_buttons("L1")
+                R1 = controller.get_pressed_buttons("R1")
 
         if Triangle:
             print("home")
             control.home(config.data["origin_point"])
             while Triangle:
-                Triangle = controller.get_pressed_buttons(3)
+                Triangle = controller.get_pressed_buttons("Triangle")
 #
         #if Square:
         #    print("draw")
@@ -73,7 +63,7 @@ try:
                 print("Hover Mode")
             #print(f"gait: {walk_mode}")
             while Circle:
-                Circle = controller.get_pressed_buttons(1)
+                Circle = controller.get_pressed_buttons("Circle")
 
         #pressed_buttons = controller.get_pressed_buttons()
         #print(Joystick_L)
