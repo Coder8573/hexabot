@@ -17,16 +17,16 @@ class Walk_Class:
         # self.weightSum
         # self.distanceFromCenter = 180
         # self.distanceFromGround = -
-        self.push_fraction = 3/6
-        self.walk_progress = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        self.push_fraction = 3.1/6
+        self.walk_progress = [0.0, 0.5, 0.0, 0.5, 0.0, 0.5]
         self.legStates = [0, 0, 0, 0, 0, 0]
         self.current_gait = 1
 
         self.step_length = config.data["step_length"]
         self.step_height = config.data["step_height"]
         self.step_size_multiplier = 1
-        self.speed_multiplier = 1.6
-        self.step_height_multiplier = 1
+        self.speed_multiplier = 1.2
+        self.step_height_multiplier = 0.6
 
         self.origin_point = config.data["origin_point"]
         self.current_point = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
