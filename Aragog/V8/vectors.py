@@ -53,7 +53,10 @@ def rotate(point1, angle, pivot):
     return point1
 
 def length(point):
-    return math.sqrt(point[0] ** 2 + point[1] ** 2)
+    if len(point) == 2:
+        return math.sqrt(point[0] ** 2 + point[1] ** 2)
+    else:
+        return math.sqrt(point[0] ** 2 + point[1] ** 2 + point[2] ** 2)
 
 def distance(point1, point2):
     return length(subtract_point(point1, point2))
