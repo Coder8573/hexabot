@@ -25,6 +25,8 @@ try:
         start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
+        L2 = controller.Trigger_L()
+        R2 = controller.Trigger_R()
         L1 = controller.get_pressed_buttons("L1")
         R1 = controller.get_pressed_buttons("R1")
         Circle = controller.get_pressed_buttons("Circle")
@@ -71,20 +73,20 @@ try:
             if walk_mode == 0:
                 control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)# Joystick_L["dir"]
             elif walk_mode == 1:
-                control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"])
+                control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2)
             # control.walk_to_home_pos()
 
         elif Joystick_L != None and Joystick_R == None:
             if walk_mode == 0:
                 control.walk(Joystick_L["vector"], [0, 0], gait=gait)  # Joystick_L["dir"]
             elif walk_mode == 1:
-                control.hover(Joystick_L["vector_raw"], [0, 0])
+                control.hover(Joystick_L["vector_raw"], [0, 0], L2, R2)
 
         elif Joystick_R != None and Joystick_L == None:
             if walk_mode == 0:
                 control.walk([0, 0], Joystick_R["vector"], gait=gait)
             elif walk_mode == 1:
-                control.hover([0, 0], Joystick_R["vector_raw"])
+                control.hover([0, 0], Joystick_R["vector_raw"], L2, R2)
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)

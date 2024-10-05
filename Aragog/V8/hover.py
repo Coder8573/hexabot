@@ -17,15 +17,15 @@ class Hover_Class:
         self.leg_points = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
         self.points = [self.origin_point, self.origin_point, self.origin_point, self.origin_point, self.origin_point, self.origin_point]
 
-    def hover(self, joy1, joy2):
+    def hover(self, joy1, joy2, l2, r2):
 
         for leg in range(1, 7):
-            self.points[leg-1] = self.gen_point(leg, joy1, joy2)
+            self.points[leg-1] = self.gen_point(leg, joy1, joy2, l2, r2)
 
             #print(self.points)
         return self.points
 
-    def gen_point(self, leg, joy1, joy2):
+    def gen_point(self, leg, joy1, joy2, l2, r2):
         joy1_magnitude = operations.constrain(
             operations.map_value(operations.calc_hypotenuse(joy1[0], joy1[1]), 0.2, 1, 0, 1), 0, 1)
         joy2_magnitude = operations.constrain(
@@ -42,9 +42,12 @@ class Hover_Class:
                 move_dir = 0
 
 
-        displacement = []
+        displacement = [[config.data["hover_step_length"] * joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
+                         config.data["hover_step_length"] * joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
+                         (1-l2)*config.data["hover_step_height"]-(1-r2)*config.data["hover_step_height"]]]
         rotation = 0
 
+        new_point = vectors.add_point(self.origin_point, displacement)
         # new_point = vectors.add_point(self.points[leg - 1], [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)), joy1_magnitude * math.sin(math.radians(-move_dir +
         #                                                                                                                                                                                               config.data["legMountAngle"][leg - 1] + 180)), 0])
         # #new_point = vectors.add_point(self.points[leg-1], [joy1[0]*math.cos(math.radians(config.data["legMountAngle"][leg-1])), joy1[1]*math.sin(math.radians(config.data["legMountAngle"][leg-1])), 0])

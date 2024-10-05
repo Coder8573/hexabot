@@ -89,9 +89,9 @@ class Control:
         self.move(6, points[5])
         self.execute_move()
 
-    def hover(self, joy1, joy2):
+    def hover(self, joy1, joy2, l2, r2):
 
-        points = self.hover_class.hover(joy1, joy2)
+        points = self.hover_class.hover(joy1, joy2, l2, r2)
 
         self.move(1, points[0])
         self.move(2, points[1])
