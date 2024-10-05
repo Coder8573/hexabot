@@ -27,6 +27,7 @@ try:
         Joystick_R = controller.Joystick_R()
         L2 = controller.Trigger_L()
         R2 = controller.Trigger_R()
+        print(f"L2: {L2}, R2: {R2}")
         L1 = controller.get_pressed_buttons("L1")
         R1 = controller.get_pressed_buttons("R1")
         Circle = controller.get_pressed_buttons("Circle")
