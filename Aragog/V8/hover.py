@@ -48,7 +48,7 @@ class Hover_Class:
 
         displacement = [config.data["hover_step_length"] * joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
                          config.data["hover_step_length"] * joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
-                         (1-l2)*config.data["hover_step_height"]-(1-r2)*config.data["hover_step_height"]]
+                         (1+l2)*config.data["hover_step_height"]-(1+r2)*config.data["hover_step_height"]]
         rotation = 0
 
         new_point = vectors.add_point(self.origin_point, displacement)
@@ -86,7 +86,7 @@ class Hover_Class:
 
         displacement = [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
                         joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
-                        (1-l2)-(1-r2)]
+                        (1+l2)-(1+r2)]
         rotation = 0
 
         new_point = vectors.add_point(self.points[leg-1], displacement)
