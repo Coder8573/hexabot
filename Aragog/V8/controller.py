@@ -139,6 +139,9 @@ class controller():
         else:
             return self.joystick.get_button(self.button_mapping[button])
 
+    def get_inputs(self):
+        return [f"""Joy Left: {self.Joystick_L()["vector_raw"]}, Joy Right: {self.Joystick_R()["vector_raw"]}, L2: {self.Trigger_L()}, R2: {self.Trigger_R()}, Buttons: {self.get_pressed_buttons()}"""]
+
 #con = controller()
 #while 1:
 #    print(con.Joystick_L(), con.Joystick_R())
