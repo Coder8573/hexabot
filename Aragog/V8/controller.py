@@ -46,8 +46,7 @@ class controller():
                 "Left_Joystick": 11,
                 "Right_Joystick": 12,
                 "L1": 4,
-                "R1": 5,
-                "1": 13
+                "R1": 5
             }
             self.analog_mapping = {
                 "Joy_Left_x": 0,
