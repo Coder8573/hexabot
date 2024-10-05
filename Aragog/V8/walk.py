@@ -20,7 +20,7 @@ class Walk_Class:
         self.push_fraction = 3/6
         self.walk_progress = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         self.legStates = [0, 0, 0, 0, 0, 0]
-        self.current_gait = 0
+        self.current_gait = 1
 
         self.step_length = config.data["step_length"]
         self.step_height = config.data["step_height"]
@@ -32,23 +32,23 @@ class Walk_Class:
         self.current_point = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
 
     def gait_parameter(self, gait):
-        if gait == 0:
-            # Mono Gait
-            self.walk_progress[0] = 0
-            self.walk_progress[1] = 0
-            self.walk_progress[2] = 0
-            self.walk_progress[3] = 0
-            self.walk_progress[4] = 0
-            self.walk_progress[5] = 0
+        #if gait == 0:
+        #    # Mono Gait
+        #    self.walk_progress[0] = 0
+        #    self.walk_progress[1] = 0
+        #    self.walk_progress[2] = 0
+        #    self.walk_progress[3] = 0
+        #    self.walk_progress[4] = 0
+        #    self.walk_progress[5] = 0
+#
+        #    self.push_fraction = 3/6
+        #    self.step_size_multiplier = 1
+        #    self.speed_multiplier = 0.6
+        #    self.step_height_multiplier = 1
+        #    self.step_length = 220
 
-            self.push_fraction = 3/6
-            self.step_size_multiplier = 1
-            self.speed_multiplier = 0.6
-            self.step_height_multiplier = 1
-            self.step_length = 220
 
-
-        elif gait == 1:
+        if gait == 1:
             # Tri Gait
             self.walk_progress[0] = 0
             self.walk_progress[1] = 1 / 2

@@ -89,7 +89,7 @@ class controller():
             return {"dir": dir, "speed": speed, "x": self.joy_l_pos[0], "y": self.joy_l_pos[1], "vector": self.joy_l_pos, "vector_raw": [x, y]}
 
     def Joystick_R(self):
-        pygame.event.pump()  # Ereignisse abfragen, um den Joystick-Status zu aktualisieren
+        pygame.event.pump()
         x = round(self.joystick.get_axis(self.analog_mapping["Joy_Right_x"]), 2)
         y = round(self.joystick.get_axis(self.analog_mapping["Joy_Right_y"]), 2)
         if math.sqrt(x ** 2 + y ** 2) > 0.2:
@@ -108,7 +108,6 @@ class controller():
             #self.joy_r_pos = [x, y]
             return {"dir": dir, "speed": speed, "x": self.joy_r_por[0], "y": self.joy_r_por[1], "vector": self.joy_r_por, "vector_raw": [x, y]}
 
-    #not working
     def Trigger_L(self):
         pygame.event.pump()
         #print(f"L: {round(joystick.get_axis(4), 2)}")

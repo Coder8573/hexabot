@@ -17,7 +17,7 @@ else:
     quit("Operating system not supported")
 
 gait = 1
-walk_mode = 0
+#walk_mode = 0
 
 try:
     control.home(config.data["origin_point"])
@@ -49,6 +49,12 @@ try:
             control.home(config.data["origin_point"])
             while Triangle:
                 Triangle = controller.get_pressed_buttons("Triangle")
+
+        if gait == 0:
+            control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2)
+        else:
+            if Joystick_L["vector_raw"] != [0, 0] or Joystick_R["vector_raw"] != [0, 0]:
+                control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)
 #
         #if Square:
         #    print("draw")
@@ -56,38 +62,38 @@ try:
         #    while Square:
         #        Square = controller.get_pressed_buttons(3)
 
-        if Circle:
-            walk_mode = walk_mode + Circle
-            if walk_mode > 1:
-                walk_mode = 0
-                print("Walk Mode")
-            if walk_mode < 0:
-                walk_mode = 1
-                print("Hover Mode")
-            #print(f"gait: {walk_mode}")
-            while Circle:
-                Circle = controller.get_pressed_buttons("Circle")
+        #if Circle:
+        #    walk_mode = walk_mode + Circle
+        #    if walk_mode > 1:
+        #        walk_mode = 0
+        #        print("Walk Mode")
+        #    if walk_mode < 0:
+        #        walk_mode = 1
+        #        print("Hover Mode")
+        #    #print(f"gait: {walk_mode}")
+        #    while Circle:
+        #        Circle = controller.get_pressed_buttons("Circle")
 
         #pressed_buttons = controller.get_pressed_buttons()
         #print(Joystick_L)
-        if Joystick_L != None and Joystick_R != None:
-            if walk_mode == 0:
-                control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)# Joystick_L["dir"]
-            elif walk_mode == 1:
-                control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2)
-            # control.walk_to_home_pos()
-
-        elif Joystick_L != None and Joystick_R == None:
-            if walk_mode == 0:
-                control.walk(Joystick_L["vector"], [0, 0], gait=gait)  # Joystick_L["dir"]
-            elif walk_mode == 1:
-                control.hover(Joystick_L["vector_raw"], [0, 0], L2, R2)
-
-        elif Joystick_R != None and Joystick_L == None:
-            if walk_mode == 0:
-                control.walk([0, 0], Joystick_R["vector"], gait=gait)
-            elif walk_mode == 1:
-                control.hover([0, 0], Joystick_R["vector_raw"], L2, R2)
+        #if Joystick_L != None and Joystick_R != None:
+        #    if walk_mode == 0:
+        #        control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)# Joystick_L["dir"]
+        #    elif walk_mode == 1:
+        #        control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2)
+        #    # control.walk_to_home_pos()
+#
+        #elif Joystick_L != None and Joystick_R == None:
+        #    if walk_mode == 0:
+        #        control.walk(Joystick_L["vector"], [0, 0], gait=gait)  # Joystick_L["dir"]
+        #    elif walk_mode == 1:
+        #        control.hover(Joystick_L["vector_raw"], [0, 0], L2, R2)
+#
+        #elif Joystick_R != None and Joystick_L == None:
+        #    if walk_mode == 0:
+        #        control.walk([0, 0], Joystick_R["vector"], gait=gait)
+        #    elif walk_mode == 1:
+        #        control.hover([0, 0], Joystick_R["vector_raw"], L2, R2)
         #control.rotate()
         #time.sleep(0.01)
         #time.sleep(0.1)
