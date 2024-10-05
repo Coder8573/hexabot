@@ -130,7 +130,7 @@ class controller():
             for i in range(self.button_mapping[max(self.button_mapping, key=self.button_mapping.get)]+1):
                 if self.joystick.get_button(i):
                     #print(f"Button {self.mapping.get(i, 'Unknown')}: Pressed")
-                    print(i)
+                    #print(i)
                     try:
                         pressed_buttons.append({value:key for key, value in self.button_mapping.items()}[i])
                     except KeyError:
