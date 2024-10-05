@@ -25,6 +25,7 @@ while True:
     print(controller.Joystick_R())
     print(controller.Trigger_L())
     print(controller.Trigger_R())
+    time.sleep(0.1)
 
 
 
