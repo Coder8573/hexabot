@@ -99,8 +99,8 @@ class Hover_Class:
                     rotation[1] - config.data["legMountY"][leg-1],
                     rotation[2]]
 
-        rotation2 = [vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1], [0, 0])[0],
-                    vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1], [0, 0])[1],
+        rotation2 = [vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]+90, [0, 0])[0],
+                    vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]+90, [0, 0])[1],
                     rotation1[2]]
 
         new_point = vectors.add_point(rotation2, displacement)
