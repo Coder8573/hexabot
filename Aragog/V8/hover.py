@@ -92,8 +92,8 @@ class Hover_Class:
                       0]
 
         rotation = [temp_point[0],
-                    vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[0],
-                    vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[1]]
+                    vectors.rotate(temp_point[1:3], joy2[1], [0, 0])[0],
+                    vectors.rotate(temp_point[1:3], joy2[1], [0, 0])[1]]
 
         rotation1 = [rotation[0] - config.data["legMountX"][leg-1],
                     rotation[1] - config.data["legMountY"][leg-1],
