@@ -95,17 +95,17 @@ class Hover_Class:
                     vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[0],
                     vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[1]]
 
-        rotation = [rotation[0] - config.data["legMountX"][leg-1],
+        rotation1 = [rotation[0] - config.data["legMountX"][leg-1],
                     rotation[1] - config.data["legMountY"][leg-1],
                     rotation[2]]
 
-        rotation = [vectors.rotate(rotation[0:2], config.data["legMountAngle"][leg - 1]-90, [0, 0])[0],
-                    vectors.rotate(rotation[0:2], config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
-                    rotation[2]]
+        rotation2 = [vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]-90, [0, 0])[0],
+                    vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
+                    rotation1[2]]
 
-        new_point = vectors.add_point(rotation, displacement)
+        new_point = vectors.add_point(rotation2, displacement)
 
-        print(f"""new_point: {new_point}, temp_point: {temp_point}, rotation: {rotation}, displacement: {displacement}""")
+        print(f"""new_point: {new_point}, temp_point: {temp_point}, rotation: {rotation}, rotation1: {rotation1}, rotation2: {rotation2}, displacement: {displacement}""")
         # new_point = vectors.add_point(self.points[leg - 1], [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)), joy1_magnitude * math.sin(math.radians(-move_dir +
         #                                                                                                                                                                                               config.data["legMountAngle"][leg - 1] + 180)), 0])
         # #new_point = vectors.add_point(self.points[leg-1], [joy1[0]*math.cos(math.radians(config.data["legMountAngle"][leg-1])), joy1[1]*math.sin(math.radians(config.data["legMountAngle"][leg-1])), 0])
