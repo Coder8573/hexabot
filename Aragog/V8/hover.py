@@ -87,8 +87,8 @@ class Hover_Class:
                          config.data["hover_step_length"] * joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
                          (1+l2)*config.data["hover_step_height"]-(1+r2)*config.data["hover_step_height"]]
 
-        temp_point = [config.data["legMountX"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0]),
-                      config.data["legMountY"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0]),
+        temp_point = [config.data["legMountX"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0])[0],
+                      config.data["legMountY"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
                       0]
 
         rotation = [temp_point[0], vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])]
