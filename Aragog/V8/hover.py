@@ -91,7 +91,9 @@ class Hover_Class:
                       config.data["legMountY"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
                       0]
 
-        rotation = [temp_point[0], vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])]
+        rotation = [temp_point[0],
+                    vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[0],
+                    vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[1]]
 
         new_point = vectors.add_point(rotation, displacement)
         # new_point = vectors.add_point(self.points[leg - 1], [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)), joy1_magnitude * math.sin(math.radians(-move_dir +
