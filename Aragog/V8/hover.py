@@ -95,6 +95,14 @@ class Hover_Class:
                     vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[0],
                     vectors.rotate(temp_point[1:3], joy2[0]*20, [0, 0])[1]]
 
+        rotation = [rotation[0] - config.data["legMountX"][leg-1],
+                    rotation[1] - config.data["legMountY"][leg-1],
+                    rotation[2]]
+
+        rotation = [vectors.rotate(rotation[0], config.data["legMountAngle"][leg - 1]-90, [0, 0])[0],
+                    vectors.rotate(rotation[1], config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
+                    rotation[2]]
+
         new_point = vectors.add_point(rotation, displacement)
 
         print(f"""new_point: {new_point}, temp_point: {temp_point}, rotation: {rotation}, displacement: {displacement}""")
