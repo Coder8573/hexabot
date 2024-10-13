@@ -46,6 +46,7 @@ try:
                 gait = 0
             print(f"gait: {gait}")
             while L1 or R1:
+                controller.update()
                 L1 = controller.get_pressed_buttons("L1")
                 R1 = controller.get_pressed_buttons("R1")
 
@@ -53,6 +54,7 @@ try:
             print("home")
             control.home(config.data["origin_point"])
             while Triangle:
+                controller.update()
                 Triangle = controller.get_pressed_buttons("Triangle")
 
         if gait < 0:
