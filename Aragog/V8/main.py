@@ -23,6 +23,7 @@ try:
     while True:
         start = time.time()
         test_time = 0
+        test_time = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
         L2 = controller.Trigger_L()
@@ -32,6 +33,8 @@ try:
         R1 = controller.get_pressed_buttons("R1")
         Circle = controller.get_pressed_buttons("Circle")
         Triangle = controller.get_pressed_buttons("Triangle")
+
+        test_time = time.time() - test_time
         #Square = controller.get_pressed_buttons(2)
         if L1 or R1:
             gait = gait + R1 - L1
@@ -58,10 +61,8 @@ try:
         else:
             print(controller.get_inputs())
 
-        test_time = time.time()
         while (start+0.01) > time.time():
             pass
-        test_time = time.time() - test_time
         print(f"Cycle Time: {start-time.time()}, Test Time: {test_time}")
 
 
