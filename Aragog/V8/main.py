@@ -59,6 +59,7 @@ try:
 
         while (start+0.01) > time.time():
             pass
+        print(start-time.time())
 
 
 except KeyboardInterrupt:

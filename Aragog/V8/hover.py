@@ -129,10 +129,10 @@ class Hover_Class:
         # new_point = [rotation_point_y[0], new_point[1], rotation_point_y[1]]
         # #print(new_point)
         if self.is_point_valid(new_point, self.origin_point, self.step_length):
-            print("valid")
+            #+print("valid")
             return new_point
         else:
-            print("invalid")
+            #print("invalid")
             return self.points[leg-1]
 
 
