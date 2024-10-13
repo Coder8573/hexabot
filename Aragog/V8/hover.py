@@ -58,12 +58,12 @@ class Hover_Class:
         # rotation = [rotation[0] + config.data["legMountX"][leg-1], ]
 
         rotation2 = [rotation[0],
-                     vectors.rotate(rotation[1:3], -joy2[1], [0, 0])[0],
-                     vectors.rotate(rotation[1:3], -joy2[1], [0, 0])[1]]
+                     vectors.rotate(rotation[1:3], -joy2[1]/5, [0, 0])[0],
+                     vectors.rotate(rotation[1:3], -joy2[1]/5, [0, 0])[1]]
 
-        rotation2 = [vectors.rotate([rotation2[0], rotation2[2]], joy2[0], [0, 0])[0],
+        rotation2 = [vectors.rotate([rotation2[0], rotation2[2]], joy2[0]/5, [0, 0])[0],
                      rotation2[1],
-                     vectors.rotate([rotation2[0], rotation2[2]], joy2[0], [0, 0])[1]]
+                     vectors.rotate([rotation2[0], rotation2[2]], joy2[0]/5, [0, 0])[1]]
 
         rotation2 = [vectors.rotate(rotation2[0:2], -90 + config.data["legMountAngle"][leg - 1], [0, 0])[0],
                      vectors.rotate(rotation2[0:2], -90 + config.data["legMountAngle"][leg - 1], [0, 0])[1],
