@@ -50,7 +50,6 @@ try:
             while Triangle:
                 Triangle = controller.get_pressed_buttons("Triangle")
 
-        test_time = time.time()
         if gait < 0:
             control.hover(Joystick_L["vector_raw"], Joystick_R["vector_raw"], L2, R2, gait)
         elif gait > 0:
@@ -58,10 +57,11 @@ try:
                 control.walk(Joystick_L["vector"], Joystick_R["vector"], gait=gait)
         else:
             print(controller.get_inputs())
-        test_time = time.time() - test_time
 
+        test_time = time.time()
         while (start+0.01) > time.time():
             pass
+        test_time = time.time() - test_time
         print(f"Cycle Time: {start-time.time()}, Test Time: {test_time}")
 
 
