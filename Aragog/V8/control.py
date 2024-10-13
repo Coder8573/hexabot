@@ -129,6 +129,7 @@ class Control:
             self.move(6, [coord[0], 0, i])
             self.execute_move()
             time.sleep(0.01)
+        self.hover_class.reset()
 
 
     def draw(self):

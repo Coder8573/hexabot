@@ -21,7 +21,7 @@ gait = 0
 try:
     control.home(config.data["origin_point"])
     while True:
-        #start = time.time()
+        start = time.time()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
         L2 = controller.Trigger_L()
@@ -57,8 +57,8 @@ try:
         else:
             print(controller.get_inputs())
 
-        #while (start+0.005) > time.time():
-        #    pass
+        while (start+0.005) > time.time():
+            pass
 
 
 except KeyboardInterrupt:
