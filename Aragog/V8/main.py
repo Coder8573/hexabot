@@ -57,7 +57,7 @@ try:
         else:
             print(controller.get_inputs())
 
-        while (start+0.005) > time.time():
+        while (start+0.01) > time.time():
             pass
 
 

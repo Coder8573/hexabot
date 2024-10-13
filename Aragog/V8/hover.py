@@ -11,7 +11,7 @@ class Hover_Class:
         self.step_length = config.data["hover_step_length"]
         self.step_height = config.data["hover_step_height"]
         self.step_size_multiplier = 1
-        self.speed_multiplier = 1
+        self.speed_multiplier = 0.5
 
         self.origin_point = config.data["origin_point"]
         self.leg_points = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
