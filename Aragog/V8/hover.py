@@ -50,9 +50,44 @@ class Hover_Class:
         displacement = [self.speed_multiplier*joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
                         self.speed_multiplier*joy1_magnitude * math.sin(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)),
                         self.speed_multiplier*((1+l2)-(1+r2))*0.5]
-        rotation = 0
 
-        new_point = vectors.add_point(self.points[leg-1], displacement)
+        rotation = [vectors.rotate(self.points[leg-1][0:2], 90 - config.data["legMountAngle"][leg - 1], [0, 0])[0],
+                    vectors.rotate(self.points[leg-1][0:2], 90 - config.data["legMountAngle"][leg - 1], [0, 0])[1],
+                    self.points[leg-1][2]]
+
+        # rotation = [rotation[0] + config.data["legMountX"][leg-1], ]
+
+        rotation2 = [rotation[0],
+                     vectors.rotate(rotation[1:3], -joy2[1], [0, 0])[0],
+                     vectors.rotate(rotation[1:3], -joy2[1], [0, 0])[1]]
+
+        rotation2 = [vectors.rotate([rotation2[0], rotation2[2]], joy2[0], [0, 0])[0],
+                     rotation2[1],
+                     vectors.rotate([rotation2[0], rotation2[2]], joy2[0], [0, 0])[1]]
+
+        rotation2 = [vectors.rotate(rotation2[0:2], -90 + config.data["legMountAngle"][leg - 1], [0, 0])[0],
+                     vectors.rotate(rotation2[0:2], -90 + config.data["legMountAngle"][leg - 1], [0, 0])[1],
+                     rotation2[2]]
+
+        # temp_point = [config.data["legMountX"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0])[0],
+        #              config.data["legMountY"][leg-1] + vectors.rotate(self.origin_point[0:2], -config.data["legMountAngle"][leg - 1]-90, [0, 0])[1],
+        #              0]
+        #
+        # rotation = [temp_point[0],
+        #            vectors.rotate(temp_point[1:3], joy2[1], [0, 0])[0],
+        #            vectors.rotate(temp_point[1:3], joy2[1], [0, 0])[1]]
+        #
+        # rotation1 = [rotation[0] - config.data["legMountX"][leg-1],
+        #            rotation[1] - config.data["legMountY"][leg-1],
+        #            rotation[2]]
+        #
+        # rotation2 = [vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]+90, [0, 0])[0],
+        #            vectors.rotate(rotation1[0:2], config.data["legMountAngle"][leg - 1]+90, [0, 0])[1],
+        #            rotation1[2]]
+
+        new_point = vectors.add_point(rotation2, displacement)
+
+        #new_point = vectors.add_point(self.points[leg-1], displacement)
         # new_point = vectors.add_point(self.points[leg - 1], [joy1_magnitude * math.cos(math.radians(-move_dir + config.data["legMountAngle"][leg - 1] + 180)), joy1_magnitude * math.sin(math.radians(-move_dir +
         #                                                                                                                                                                                               config.data["legMountAngle"][leg - 1] + 180)), 0])
         # #new_point = vectors.add_point(self.points[leg-1], [joy1[0]*math.cos(math.radians(config.data["legMountAngle"][leg-1])), joy1[1]*math.sin(math.radians(config.data["legMountAngle"][leg-1])), 0])
