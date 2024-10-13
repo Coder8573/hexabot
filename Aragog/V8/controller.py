@@ -68,8 +68,11 @@ class controller():
             print("Kein Controller gefunden.")
             exit()
 
-    def Joystick_L(self):
+    def update(self):
         pygame.event.pump()
+
+    def Joystick_L(self):
+        #pygame.event.pump()
         x = round(self.joystick.get_axis(self.analog_mapping["Joy_Left_x"]), 2)
         y = round(self.joystick.get_axis(self.analog_mapping["Joy_Left_y"]), 2)
         if math.sqrt(x ** 2 + y ** 2) > 0.2:
@@ -91,7 +94,7 @@ class controller():
             return {"dir": 0, "speed": 0, "x": 0, "y": 0, "vector": [0, 0], "vector_raw": [0, 0]}
 
     def Joystick_R(self):
-        pygame.event.pump()
+        #pygame.event.pump()
         x = round(self.joystick.get_axis(self.analog_mapping["Joy_Right_x"]), 2)
         y = round(self.joystick.get_axis(self.analog_mapping["Joy_Right_y"]), 2)
         if math.sqrt(x ** 2 + y ** 2) > 0.2:
@@ -113,17 +116,17 @@ class controller():
             return {"dir": 0, "speed": 0, "x": 0, "y": 0, "vector": [0, 0], "vector_raw": [0, 0]}
 
     def Trigger_L(self):
-        pygame.event.pump()
+        #pygame.event.pump()
         #print(f"L: {round(joystick.get_axis(4), 2)}")
         return round(self.joystick.get_axis(self.analog_mapping["Trigger_Left"]), 2)
 
     def Trigger_R(self):
-        pygame.event.pump()
+        #pygame.event.pump()
         #print(f"R: {round(joystick.get_axis(5), 2)}")
         return round(self.joystick.get_axis(self.analog_mapping["Trigger_Right"]), 2)
 
     def get_pressed_buttons(self, button=None):
-        pygame.event.pump()
+        #pygame.event.pump()
         #print(max(self.button_mapping, key=self.button_mapping.get))
         if button is None:
             pressed_buttons = []

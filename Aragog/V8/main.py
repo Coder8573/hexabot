@@ -24,6 +24,8 @@ try:
         start = time.time()
         test_time = 0
         test_time = time.time()
+
+        controller.update()
         Joystick_L = controller.Joystick_L()
         Joystick_R = controller.Joystick_R()
         L2 = controller.Trigger_L()
@@ -61,7 +63,7 @@ try:
         else:
             print(controller.get_inputs())
 
-        while (start+0.01) > time.time():
+        while (start+0.005) > time.time():
             pass
         print(f"Cycle Time: {start-time.time()}, Test Time: {test_time}")
 
