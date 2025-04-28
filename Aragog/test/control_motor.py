@@ -23,6 +23,12 @@ def move(serial, motor, angle):
     print(packet)
     serial.write(bytearray(packet))
 
+def disable_force(serial, ID):
+    packet = [0xFF, 0xFF, ID, 0x04, 0x03, 0x28, 0]
+    packet.append(calculate_checksum(packet[2:]))
+    packet = bytearray(packet)
+    serial.write(packet)
+
 ports = serial.tools.list_ports.comports()
 
 for i in range(len(ports)):
@@ -34,4 +40,6 @@ motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 move(serial, motor, angle)
-time.sleep(0.5)
+
+time.sleep(1)
+disable_force(serial, 254)
