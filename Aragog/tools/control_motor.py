@@ -16,8 +16,8 @@ def calc_low_byte(data):
 def calc_high_byte(data):
     return (data >> 8) & 0xFF
 
-def move(serial, motor, angle):
-    steps = int(round(angle*2048, 0))
+def move(serial, motor, steps):
+    #steps = int(round(angle*2048, 0))
     packet = [0xFF, 0xFF, motor, 0x07, 0x03, 0x2A, calc_low_byte(steps), calc_high_byte(steps)]
     packet.append(calculate_checksum(packet))
     print(packet)
@@ -41,8 +41,9 @@ print(f"Port: ,/dev/ttyACM0,")
 print("/dev/ttyACM0"==port)
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
+steps = int(input("steps: "))
 serial = serial.Serial(port, 1000000, timeout=1)
-move(serial, motor, angle)
+move(serial, motor, steps)
 
 time.sleep(20)
 disable_force(serial, 254)
