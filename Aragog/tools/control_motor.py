@@ -47,6 +47,6 @@ serial = serial.Serial(port, 1000000, timeout=1)
 time.sleep(0.5)
 move(serial, 254, steps)
 
-time.sleep(5)
+time.sleep(1)
 disable_force(serial, 254)
-time.sleep(2)
+time.sleep(0.1)
