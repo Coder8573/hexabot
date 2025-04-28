@@ -44,7 +44,7 @@ motor = int(input("Gib einen Motor an: "))
 #angle = float(input("Gib einen Winkel an: "))
 steps = int(input("steps: "))
 serial = serial.Serial(port, 1000000, timeout=1)
-time.sleep(0.5)
+time.sleep(0.1)
 move(serial, motor, steps)
 
 time.sleep(1)
