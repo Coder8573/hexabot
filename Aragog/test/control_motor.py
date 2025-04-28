@@ -26,7 +26,7 @@ for port in ports:
     print(f"Name: {port.device} | Beschreibung: {port.description}")
 
 port = input("Gib einen Port an: ")
-motor = int("Gib einen Motor an: ")
+motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 move(serial, motor, angle)
