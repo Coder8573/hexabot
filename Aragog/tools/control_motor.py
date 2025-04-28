@@ -41,5 +41,5 @@ angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 move(serial, motor, angle)
 
-time.sleep(1)
+time.sleep(3)
 disable_force(serial, 254)
