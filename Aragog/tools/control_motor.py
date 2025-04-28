@@ -40,12 +40,12 @@ for i in range(len(ports)):
 
 port = str(ports[int(input("Gib einen Port an: "))].device)
 #port = "/dev/ttyACM0"
-#motor = int(input("Gib einen Motor an: "))
+motor = int(input("Gib einen Motor an: "))
 #angle = float(input("Gib einen Winkel an: "))
 steps = int(input("steps: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 time.sleep(0.5)
-move(serial, 254, steps)
+move(serial, motor, steps)
 
 time.sleep(1)
 disable_force(serial, 254)
