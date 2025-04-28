@@ -16,7 +16,7 @@ def calc_high_byte(data):
 
 def move(serial, motor, angle):
     steps = int(round(angle*2048, 0))
-    packet = [0xFF, 0xFF, motor, 0x07, 0x03, 0x2A, calc_low_byte(steps[0]), calc_high_byte(steps[0])]
+    packet = [0xFF, 0xFF, motor, 0x07, 0x03, 0x2A, calc_low_byte(steps), calc_high_byte(steps)]
     packet.append(calculate_checksum(packet))
     serial.write(bytearray(packet))
 
