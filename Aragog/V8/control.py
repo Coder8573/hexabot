@@ -46,7 +46,7 @@ class Control:
         #print(len(self.packet))
         self.packet.append(self.calculate_checksum(self.packet))
         self.ser.write(bytearray(self.packet))
-        self.ser.write(bytearray(self.packet))
+        #self.ser.write(bytearray(self.packet))
         #print(f"""{self.packet}"Test2""")
         #time.sleep(0.05)
         self.packet = []
