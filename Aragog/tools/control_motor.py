@@ -22,6 +22,7 @@ def move(serial, motor, steps):
     packet.append(calculate_checksum(packet))
     print(packet)
     serial.write(bytearray(packet))
+    serial.write(bytearray(packet))
 
 
 def disable_force(serial, ID):
@@ -29,6 +30,7 @@ def disable_force(serial, ID):
     packet = [0xFF, 0xFF, ID, 0x04, 0x03, 0x28, 0]
     packet.append(calculate_checksum(packet))
     packet = bytearray(packet)
+    serial.write(packet)
     serial.write(packet)
 
 ports = serial.tools.list_ports.comports()
