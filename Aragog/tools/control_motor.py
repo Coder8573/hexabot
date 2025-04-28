@@ -31,6 +31,12 @@ def disable_force(serial, ID):
     packet = bytearray(packet)
     serial.write(packet)
 
+def enable_force(serial, ID):
+    print("enable force")
+    packet = [0xFF, 0xFF, ID, 0x04, 0x03, 0x28, 1]
+    packet.append(calculate_checksum(packet[2:]))
+    serial.write(bytearray(packet))
+
 ports = serial.tools.list_ports.comports()
 
 for i in range(len(ports)):
@@ -42,6 +48,8 @@ port = str(ports[int(input("Gib einen Port an: "))].device)
 #angle = float(input("Gib einen Winkel an: "))
 steps = int(input("steps: "))
 serial = serial.Serial(port, 1000000, timeout=1)
+enable_force(serial, 254)
+time.sleep(1)
 move(serial, 254, steps)
 
 time.sleep(5)
