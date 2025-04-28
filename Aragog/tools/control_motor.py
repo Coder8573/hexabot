@@ -43,5 +43,6 @@ steps = int(input("steps: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 move(serial, 254, steps)
 
-time.sleep(1)
-#disable_force(serial, 254)
+time.sleep(5)
+disable_force(serial, 254)
+time.sleep(2)
