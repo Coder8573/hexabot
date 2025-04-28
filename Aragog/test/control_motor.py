@@ -25,11 +25,10 @@ def move(serial, motor, angle):
 
 ports = serial.tools.list_ports.comports()
 
-for port in ports:
-    print(f"Name: {port.device} | Beschreibung: {port.description}")
+for i in range(len(ports)):
+    print(f"{i}: Name: {ports[i].device} | Beschreibung: {ports[i].description}")
 
-#port = input("Gib einen Port an: ")
-port = "/dev/ttyAMA10"
+port = ports[int(input("Gib einen Port an: "))-1].device
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
