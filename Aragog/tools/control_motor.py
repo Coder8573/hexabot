@@ -28,7 +28,7 @@ def move(serial, motor, steps):
 def disable_force(serial, ID):
     print("disable force")
     packet = [0xFF, 0xFF, ID, 0x04, 0x03, 0x28, 0]
-    packet.append(calculate_checksum(packet))
+    packet.append(calculate_checksum(packet[2:]))
     packet = bytearray(packet)
     serial.write(packet)
     serial.write(packet)
