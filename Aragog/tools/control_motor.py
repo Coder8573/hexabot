@@ -43,4 +43,4 @@ serial = serial.Serial(f"{port}", 1000000, timeout=1)
 move(serial, motor, angle)
 
 time.sleep(3)
-#disable_force(serial, 254)
+disable_force(serial, 254)
