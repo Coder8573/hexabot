@@ -25,7 +25,8 @@ ports = serial.tools.list_ports.comports()
 for port in ports:
     print(f"Name: {port.device} | Beschreibung: {port.description}")
 
-port = input("Gib einen Port an: ")
+#port = input("Gib einen Port an: ")
+port = "/dev/ttyAMA10"
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
