@@ -1,3 +1,5 @@
+import time
+
 import serial
 import serial.tools.list_ports
 
@@ -31,3 +33,4 @@ motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
 move(serial, motor, angle)
+time.sleep(0.5)
