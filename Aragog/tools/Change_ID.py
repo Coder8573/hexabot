@@ -26,9 +26,16 @@ def send_packet(ser, packet):
     response = receive_response(ser)
     print("Response:", response)
 
-ser = serial.Serial('COM8', 1000000, timeout=1)
-old_ID = 2
-new_ID = 4
+
+ports = serial.tools.list_ports.comports()
+
+for i in range(len(ports)):
+    print(f"{i}: Name: {ports[i].device} | Beschreibung: {ports[i].description}")
+
+port = str(ports[int(input("Gib einen Port an: "))].device)
+ser = serial.Serial(port, 1000000, timeout=1)
+old_ID = int(input("Alte ID: "))
+new_ID = int(input("Neue ID: "))
 packet = [0xFF, 0xFF, old_ID, 0x04, 0x03, 0x37, 0x00]
 send_packet(ser, packet)
 packet = [0xFF, 0xFF, old_ID, 0x04, 0x03, 0x5, new_ID]
@@ -36,12 +43,4 @@ send_packet(ser, packet)
 packet = [0xFF, 0xFF, new_ID, 0x04, 0x03, 0x37, 0x01]
 send_packet(ser, packet)
 
-#packet = [255, 255, 1, 11, 3, 42, 0, 0]
-#send_packet(ser, packet)
-#position = 1000
-#position_low_byte = position & 0xFF
-#position_high_byte = (position >> 8) & 0xFF
-#packet = [0xFF, 0xFF, 0xFE, 5, 0x03, 0x2A, position_low_byte, position_high_byte]
-#send_packet(ser, packet)
-#ser.write([0xFF, 0xFF, 0x01, 6, 0x03, 0x2A, position_low_byte, position_high_byte])
 ser.close()
