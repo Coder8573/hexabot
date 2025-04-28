@@ -35,11 +35,11 @@ for i in range(len(ports)):
     print(f"{i}: Name: {ports[i].device} | Beschreibung: {ports[i].description}")
 
 port = ports[int(input("Gib einen Port an: "))].device
-port = "/dev/ttyACM0"
+#port = "/dev/ttyACM0"
 print(f"Port: {port}")
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
-serial = serial.Serial(port, 1000000, timeout=1)
+serial = serial.Serial(f"{port}", 1000000, timeout=1)
 move(serial, motor, angle)
 
 time.sleep(3)
