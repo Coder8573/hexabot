@@ -28,7 +28,8 @@ ports = serial.tools.list_ports.comports()
 for i in range(len(ports)):
     print(f"{i}: Name: {ports[i].device} | Beschreibung: {ports[i].description}")
 
-port = ports[int(input("Gib einen Port an: "))-1].device
+port = ports[int(input("Gib einen Port an: "))].device
+print(f"Port: {port}")
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(port, 1000000, timeout=1)
