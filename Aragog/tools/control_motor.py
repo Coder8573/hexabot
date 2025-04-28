@@ -37,6 +37,8 @@ for i in range(len(ports)):
 port = str(ports[int(input("Gib einen Port an: "))].device)
 #port = "/dev/ttyACM0"
 print(f"Port: ,{port},")
+print(f"Port: ,/dev/ttyACM0,")
+print("/dev/ttyACM0"==port)
 motor = int(input("Gib einen Motor an: "))
 angle = float(input("Gib einen Winkel an: "))
 serial = serial.Serial(f"{port}", 1000000, timeout=1)
