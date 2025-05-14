@@ -38,8 +38,10 @@ ports = serial.tools.list_ports.comports()
 for i in range(len(ports)):
     print(f"{i}: Name: {ports[i].device} | Beschreibung: {ports[i].description}")
 
-port = str(ports[int(input("Gib einen Port an: "))].device)
+#port = str(ports[int(input("Gib einen Port an: "))].device)
+
 #port = "/dev/ttyACM0"
+port = input("Port: ")
 motor = int(input("Gib einen Motor an: "))
 #angle = float(input("Gib einen Winkel an: "))
 steps = int(input("steps: "))
